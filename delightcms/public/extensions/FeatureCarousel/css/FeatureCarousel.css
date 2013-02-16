@@ -1,0 +1,130 @@
+/* 
+    Document   : featureCarousel.css, Part of featureCarousel-plugin
+    Created on : 07.06.2012, 19:17:53
+    Author     :  Brian Osborne, brian@bkosborne.com, Ihr Webentwickler, Gunnar von Spreckelsen
+    Description: realize styling of featureCarousel
+*/
+
+.playerbuttons {
+    margin-bottom: 2px;
+}
+
+.playerbuttons a img:hover {
+    opacity: 0.4;
+}
+
+.playerbuttons a {
+    text-decoration: none;
+}
+
+.carousel-container {
+    position: relative;
+}
+
+.carousel-container > div {
+    height: 268px;
+    width: 840px;
+    padding-bottom: 30px;
+    background-color: #96a4a8;
+}
+
+.carousel-image {
+    border: 0;
+    display: block;
+}
+
+.carousel-feature {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+.carousel-feature .carousel-caption {
+    margin: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #000;
+}
+
+.carousel-feature .carousel-caption p, .carousel-feature .carousel-caption a {
+    color: white;
+    padding: 3px;
+}
+
+.tracker-individual-blip, .tracker-summation-container, .carousel-caption p {
+    text-shadow: none;
+}
+
+.tracker-summation-container span {
+    color: #fff;
+}
+
+.tracker-summation-container {
+    height: 19px;
+    padding: 3px;
+    margin: 3px;
+    color: white;
+    background-color:#000;
+    font-size: 12px;
+    position: absolute;
+    left: 120px;
+    top: -34px;
+}
+
+.tracker-individual-container {
+    position: absolute;
+    color: white;
+    left: 207px;
+    top: -28px;
+}
+
+.tracker-individual-container li {
+    list-style: none;
+}
+
+.tracker-individual-container .tracker-individual-blip {
+    margin: 0 3px;
+    padding: 0 3px;
+    color: white;
+    text-align: center;
+    background-color: #96a4a8;
+}
+
+.tracker-individual-container .tracker-individual-blip:hover, .tracker-individual-container .tracker-individual-blip-selected {
+    color: white;
+    font-weight: bold;
+    background-color: #000;
+}
+
+
+/*
+Edit here only to place the carousel-left,
+-right and tracker individuel container:
+*/
+.tracker-individual-container {
+    position: absolute;
+    color: white;
+    left: 177px;
+    top: -28px;
+}
+
+.carousel-left {
+    position: absolute;
+    bottom: 18px;
+    left: 194px;
+    cursor: pointer;
+}
+
+.carousel-right {
+    position: absolute;
+    bottom: 18px;
+    left: 626px;
+    cursor: pointer;
+}
+
+.carousel-left:hover, .carousel-right:hover {
+    opacity: 0.5;
+}

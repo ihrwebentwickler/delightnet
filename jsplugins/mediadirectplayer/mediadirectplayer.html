@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+
+        <title>js mediadirectplayer (full version)</title>
+        <link rel="stylesheet" href="mediaplayer.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+        
+        <script type="text/javascript" src="model.js"></script>
+        <script type="text/javascript" src="controller.js"></script>
+        <script type="text/javascript" src="mediadirectplayer.js"></script>
+    </head>
+    <body>
+                    <div>
+                        <p>
+                            Plugin: Media-Direct-Player (Full Version), Version: 0.9 (11.02.2012)<br />
+                            <br />
+                            Hier werden zwei voneinander unabhängige Media-Direct-Player-Instanzen als Beispiel präsentiert. Sie laufen unabhängig voneinander
+                            und es können Audio- oder Video-Media-Daten gemischt präsentiert werden. Als Fallback wird ein Flash-Player verwendet. Die Browser-Erkennung und
+                            die darauf folgende Ausspielung ist ebenfalls integriert.<br>
+                            <br>
+                            Download und Anleitung finden Sie unter: <a href="http://delightnet.de">http://delightnet.de (Rubrik jsextensions - mediadirectplayer)</a><br>
+                            Ihr Webentwickler, Gunnar von Spreckelsen
+                        </p>
+
+                        <div>
+                            <div class="mediaGalery">
+                                <div class="leftfloat">
+                                    <video controls="controls" tabindex="0">
+                                    </video>
+                                    <audio controls autobuffer>
+                                    </audio>
+                                    <div id="mediaError1" class="video">
+                                        <p>
+                                            Sorry, der Medientitel kann nicht abgespielt werden, entweder ist Ihr Browser zu veraltet oder es konnte nicht fehlerfrei
+                                            ermittelt werden, ob Ihr Browser die Abspielfähigkeit besitzt.
+                                        </p>
+                                    </div>
+                                    <div id="mediaWelcome1" class="video" style="background: url('/public/extensions/MediaDirectPlayer/images/1/welcome.jpg') no-repeat;">
+                                    </div>
+                                </div>
+                                <div id="infobox1" class="leftfloat mediaInfobox">
+                                    <div class="mediaTitle">
+                                    </div>
+                                    <div class="mediaDescription">
+                                        Herzlich Willkommen, wählen Sie unten Ihren gewünschten Titel aus.
+                                    </div>
+                                </div>
+
+                                <div class="clear">
+                                </div>
+
+                                <div id="playerGalery1" class="MediaDirectPlayer topmargin">
+                                    <div class="wrapper">
+                                        <ul>				
+                                            <li class="media1">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/1.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        Klavier Jericho
+                                                    </span>
+                                                </div>
+                                            </li>		<li class="media2">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/2.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        Zachte winter
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="media3">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/3.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        safaribus door de Beekse Bergen
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="media4">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/4.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        Zeldzame vissen
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="media5">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/5.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        Zuid-Limburg in herfsttooi
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="media6">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/6.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        Kapmeeuwen in natuurreservaat
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="media7">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/7.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        De 20e Nationale Boomfeestdag
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="media8">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/8.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        Waterverontreiniging
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="media9">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/9.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        15.000 exotic butterflies
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="media10">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/10.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        birds island Griend
+                                                    </span>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    delightcms.mediadirectplayer.objMedia1 = {
+
+                                    };
+        
+                                    $('#playerGalery1').MediaDirectPlayer({
+                                        autostart: 'off',
+                                        playerInstance: 1,
+                                        mediaData: delightcms.mediadirectplayer.objMedia1,
+                                        arrayBrowserData: [global.browser, global.version]
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="topmargin">
+                        </div>
+                        <div class="topmargin">
+                            <div class="mediaGalery" id="mediaGalery2">
+                                <div class="leftfloat">
+                                    <video id="videoPlayer2" controls="controls" tabindex="0" fullscreen="false" style="width: 300px;height:225px;">
+                                    </video>
+                                    <audio id="audioPlayer2" controls autobuffer>
+                                    </audio>
+                                    <div id="mediaError2" class="video">
+                                        <p>
+                                            Sorry, der Medientitel kann nicht abgespielt werden, entweder ist Ihr Browser zu veraltet oder es konnte nicht fehlerfrei
+                                            ermittelt werden, ob Ihr Browser die Abspielfähigkeit besitzt.
+                                        </p>
+                                    </div>
+                                    <div id="mediaWelcome2" class="video" style="background: url('/public/extensions/MediaDirectPlayer/images/2/welcome.jpg') no-repeat;">
+                                    </div>
+                                </div>
+                                <div id="infobox2" class="leftfloat mediaInfobox">
+                                    <div class="mediaTitle">
+                                    </div>
+                                    <div class="mediaDescription">
+                                        Herzlich Willkommen, wählen Sie unten Ihren gewünschten Titel aus.
+                                    </div>
+                                </div>
+
+                                <div class="clear">
+                                </div>
+
+                                <div id="playerGalery2" class="MediaDirectPlayer topmargin">
+                                    <div class="wrapper">
+                                        <ul>				
+                                            <li class="media1">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/2/sliderimages/1.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        GAL2 15.000 exotic butterflies
+                                                    </span>
+                                                </div>
+                                            </li>		<li class="media2">
+                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/2/sliderimages/2.jpg') no-repeat;">
+                                                    <span class="play">
+                                                    </span>
+                                                    <span class="sliderimageTitle">
+                                                        Menuett
+                                                    </span>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    delightcms.mediadirectplayer.objMedia2 = {
+                                        media1: {
+                                            mediaTitle: "GAL2 15.000 exotic butterflies",
+                                            mediaPoster: "http://delightcms.delightnet.de/public/images/home.jpg",
+                                            mediaDescription: "GAL2, Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike",
+                                            mediaLink1: "http://www.openbeelden.nl/files/15/15401.15394.WEEKNUMMER702-HRE0001B62E.ogv",
+                                            mediaLink2: "http://www.openbeelden.nl/files/15/15401.15394.WEEKNUMMER702-HRE0001B62E.mp4"
+                                        },
+                                        media2: {
+                                            mediaTitle: "Menuett",
+                                            mediaPoster: "http://delightcms.delightnet.de/public/images/home.jpg",
+                                            mediaDescription: "Ein Menuett von Leopold Mozart (1719 - 1787). Das Menuett war ein beliebter Tanz aus der Zeit des 17. Jahrhunderts. Es ist im 3/4-Takt verfasst.",
+                                            mediaLink1: "https://dl.dropbox.com/u/78197792/Menuett.ogg",
+                                            mediaLink2: "https://dl.dropbox.com/u/78197792/Menuett.mp3"
+                                        }
+                                    };
+        
+                                    $('#playerGalery2').MediaDirectPlayer({
+                                        autostart: 'off',
+                                        playerInstance: 2,
+                                        mediaData: delightcms.mediadirectplayer.objMedia2,
+                                        arrayBrowserData: [global.browser, global.version]
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </section>
+                </article>
+            </section>
+            <footer>
+                <small>Copyright Your Name Here 2012. All Rights Reserved.</small>
+            </footer>
+        </section>
+
+        <script>
+            var _gaq=[['_setAccount','1234'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+                g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+                s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>

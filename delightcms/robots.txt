@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /cmsadmin/
+Disallow: /error.html

@@ -1,0 +1,18 @@
+AddDefaultCharset utf-8
+
+<IfModule mod_rewrite.c>
+<Files ~ "\.(ini|json)$">
+  order allow,deny
+  deny from all
+</Files>
+
+RewriteEngine on
+RewriteBase /cmsadmin/
+
+php_value upload_max_filesize 20M
+php_value post_max_size 20M
+php_value memory_limit 512M
+
+# roule new URL
+RewriteRule (.*)\.html$ index.php?cmd=$1 [NC]
+</IfModule>

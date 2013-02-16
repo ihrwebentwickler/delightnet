@@ -1,0 +1,113 @@
+<div>
+    <table class="standard">
+        <tr>
+            <td colspan="2">
+                <p>
+                    {L:HEADER_DATA}
+                </p>
+            </td>
+        </tr>
+        <tr class="topmargin tableheader">
+            <td>
+                <p>
+                    {L:HEADER_FOLDER}
+                </p>
+            </td>
+            <td>
+                <p>
+                    {L:HEADER_EXPLANATION}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    public/configuration
+                </p>
+            </td>
+            <td>
+                <p>
+                    {L:EXPLANATION_CONFIGFOLDER}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    public/css
+                </p>
+            </td>
+            <td>
+                <p>
+                    {L:EXPLANATION_PUBLICFOLDER}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    public/images
+                </p>
+            </td>
+            <td>
+                <p>
+                    {L:EXPLANATION_IMAGEFOLDER}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    public/js
+                </p>
+            </td>
+            <td>
+                <p>
+                    {L:EXPLANATION_JSFOLDER}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    public/template bzw. public/template/parts
+                </p>
+            </td>
+            <td>
+                <p>
+                    {L:EXPLANATION_TEMPLATEPARTS} 
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    public/lang
+                </p>
+            </td>
+            <td>
+                <p>
+                    {L:EXPLANATION_LANG} 
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    public/extensions
+                </p>
+            </td>
+            <td>
+                <p>
+                    {L:EXPLANATION_EXTENSIONS} 
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="topmarginSmall">
+    <form action="webexport.html" method="post" enctype="multipart/form-data">
+        <input type="submit" name="action_public" value="{L:BTN_SAVE_LOCAL}" class="button" />
+    </form>
+</div>

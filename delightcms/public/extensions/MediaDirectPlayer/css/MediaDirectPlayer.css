@@ -1,0 +1,183 @@
+/* 
+    Document   : MediaDirectPlayer
+    Created on : 29.07.2012, 11:21:26
+    Author     : Gunnar von Spreckelsen <service@ihrwebentwickler.de>
+    Description:
+        Style for video-galeryslider
+
+    Content:
+    1.) MediaDirectPlayer
+    2.) JQuery Slider-elements
+    3.) Videoinfo-Box
+*/
+
+
+/* 1.) MediaDirectPlayer */
+/* ########################################################################## */
+.mediaGalery {
+    width: 724px;
+    padding: 18px;
+    background: white;
+    background: url("../images/bgMediaGalery.png") repeat-y;
+}
+
+video, .video, audio {
+    margin-left: 43px;
+}
+
+.MediaDirectPlayer {
+    position: relative;
+    height: 126px;
+}
+
+.MediaDirectPlayer .wrapper {
+    width: 644px;
+    margin-left: 37px;
+    overflow: auto;
+    min-height: 10em;
+    position: absolute;
+    top: 0;
+}
+
+.MediaDirectPlayer .wrapper ul {
+    width: 9999px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+}
+
+.MediaDirectPlayer ul li {
+    padding-left: 6px;
+    display: block;
+    float: left;
+}
+
+.MediaDirectPlayer ul li .sliderimage {
+    width: 200px;
+    height: 120px;
+    border: 4px solid #000;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.MediaDirectPlayer ul li .sliderimage:hover {
+    cursor: pointer;
+    border: 4px solid #fff;
+}
+
+.MediaDirectPlayer ul li .sliderimage span.play {
+    width: 200px;
+    height: 96px;
+    display: block;
+    background: url("../images/slider/playbutton_n.png") no-repeat center;
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.70;
+    opacity: 0.70;
+}
+
+.MediaDirectPlayer ul li .sliderimage span.play:hover {
+    filter: alpha(opacity=90);
+    -moz-opacity: 0.90;
+    opacity: 0.90;
+    background: url("../images/slider/playbutton_r.png") no-repeat center;
+}
+
+.MediaDirectPlayer ul li .sliderimage .sliderimageTitle {
+    width: 200px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    vertical-align: baseline;
+    background: #000;
+    background: url('../images/slider/bgVideoname.png') repeat-x 0 0;
+    position: absolute;
+    top: 100px;
+}
+
+.MediaDirectPlayer .arrow {
+    display: block;
+    width: 37px;
+    height: 37px;
+    background: url('../images/slider/arrow.png') no-repeat 0 0;
+    text-indent: -999px;
+    position: absolute;
+    top: 37px;
+    cursor: pointer;
+}
+
+.MediaDirectPlayer .forward, .MediaDirectPlayer .back {
+    top: 34px;
+}
+
+.MediaDirectPlayer .forward {
+    background-position: 0 0;
+    left: 685px;
+}
+
+.MediaDirectPlayer .forward:hover {
+    background-position: 0 -37px;
+}
+
+.MediaDirectPlayer .back {
+    background-position: 0 -74px;
+    left: 0;
+}
+
+.MediaDirectPlayer .back:hover {
+    background-position: 0 -111px;
+}
+/* ########################################################################## */
+
+
+/* 2.) JQuery Slider-elements */
+/* ########################################################################## */
+.MediaDirectPlayer ul li .darkBackground {
+    background: #000;
+    opacity: 1;
+}
+
+.MediaDirectPlayer ul li .MediaDirectPlayerClick {
+    border: 4px solid #fff;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.video {
+    width: 280px;
+    height: 205px;
+    background: #000000;
+    padding: 10px;
+}
+/* ########################################################################## */
+
+
+/* 3.) Videoinfo-Box */
+/* ########################################################################## */
+.mediaTitle {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #fff;
+}
+
+.mediaTitle, .mediaDescription {
+    color: #fff;
+}
+
+.mediaInfobox { 
+    width: 286px;
+    height: 193px;
+    margin-left: 18px;
+    padding: 12px;
+    background: black;
+    border: 4px solid #000;
+    opacity: 0.80;
+    overflow: auto;
+}
+/* ########################################################################## */

@@ -1,0 +1,1 @@
+<img src="/public/lang/images/{LANG}.png" id="{LANGID}" width="30" height="20" />

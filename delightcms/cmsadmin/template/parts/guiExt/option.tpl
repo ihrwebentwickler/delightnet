@@ -1,0 +1,1 @@
+<option alt="{GUI_CONTENTIDENTIFIER}.{GUI_OPTION_ID}">{GUI_OPTION_VALUE}</option>

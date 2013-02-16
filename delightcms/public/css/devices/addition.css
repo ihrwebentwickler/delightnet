@@ -1,0 +1,58 @@
+/*
+CONTENT:
+1.) standard-design
+2.) fonts
+*/
+
+/* 1.) standard-design */
+/* ############################################################################## */
+.ui-mobile-viewport {
+    background: #ffffff;
+}
+
+.ui-mobile-viewport article section#content {
+    min-height: auto;
+}
+
+.ui-mobile-viewport section#page1 {
+    padding: 6px;
+}
+
+.ui-mobile-viewport #navigation {
+    width: 760px;
+    height: 50px;
+    margin-bottom: 12px;
+    padding: 0;
+    border: 0;
+}
+
+.ui-mobile-viewport nav#mainNavigation ul li, nav#mainNavigation ul li:first-child {
+    border: 0;
+    padding: 0;
+}
+
+.ui-mobile-viewport #pluginNavigation  .ui-btn-icon-right {
+    width: 136px;
+}
+
+.ui-mobile-viewport .ui-grid-b .ui-btn-inner {
+    height: 26px;
+}
+
+.ui-mobile-viewport #pluginNavigation {
+    margin-left: 8px;
+    vertical-align: middle;
+    float: left;
+}
+
+#languageNavigation img {
+    padding-top: 18px;
+}
+/* ############################################################################## */
+
+/* 2.) fonts */
+/* ############################################################################## */
+.ui-mobile-viewport .ui-input-text {
+    color: #0084ce;
+}
+/* ############################################################################## */

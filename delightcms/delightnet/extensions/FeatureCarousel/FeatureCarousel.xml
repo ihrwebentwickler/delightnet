@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <FeatureCarousel>
+        <FeatureCarousel>
+            <folder>"folder/of/images"</folder>
+            <carouselSpeed>1100</carouselSpeed>
+        </FeatureCarousel>
+        <imageProperties>
+            <imageName>"name of image with type (f.e. jpg)"</imageName>
+            <description>"description of image"</description>
+        </imageProperties>
+    </FeatureCarousel>
+</document>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <Galleria>
+        <Galleria>>
+            <folder>"folder/of/images"</folder>
+        </Galleria>>
+        <galleriaProperties>
+            <imageName>"name of image with type (f.e. jpg)"</imageName>
+            <description>"description of image"</description>
+            <title>"title of image"</title>
+        </galleriaProperties>
+    </Galleria>>
+</document>

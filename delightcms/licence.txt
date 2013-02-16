@@ -1,0 +1,30 @@
+DelightCMS
+Version 0.62 (17.12.2012)
+
+Ihr Webentwickler, Gunnar von Spreckelsen
+
+licence:
+Open Source Lizenz AGPL v3 (http://opensource.org/licenses/AGPL-3.0)
+
+Info toDo next implementations:
+- multilanguage-functionality of frontend
+
+- then: code-freeze !!
+- better structure of extension-implementation (separate public-ext-content from classes and other non-public-data)
+- full gui-support for all public-data which can be edited
+- then: phpunit-testing/ better code-quality
+- security-check with php-checklist
+- technical optimation of session-management
+- full code-documentation with annotations
+- new gui-design (by daniela at first)
+
+....
+
+is this code stable for unlimited productive-deployment?
+no, security is implemented in a good way, but has to be tested
+and further developed
+
+latest date of publishing the stable-version: 31.12.2014
+
+follow my blog for more and current information:
+blog.ihrwebentwickler.de

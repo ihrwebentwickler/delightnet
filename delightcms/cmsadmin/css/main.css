@@ -1,0 +1,610 @@
+/*
+CONTENT
+1.)  Browser-Reset Eric Meyer
+2.)  Site generel
+3.)  Login-site
+4.)  Site-Format
+5.)  Fonts
+6.)  Links
+7.)  Input-fields generel
+8.)  Top-Menu
+9.)  Save-Button Confirmation
+10.) GUI's
+*/
+
+/* ################################################################## */
+/* 1.) Browser-Reset */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* 2.) Site generel */
+/* ########################################################################## */
+html {
+    height: 100%;
+    width: 100%
+}
+
+body {
+    width: 960px;
+    margin: 20px auto 20px auto;
+    color: #ffffff;
+    background: #ffffff;
+}
+
+hr {
+    border: solid #5c87cf 1px;
+    background-color: #5c87cf;
+    height: 1px;
+}
+
+#head {
+    width: 960px;
+    height: 80px;
+    background: url('../images/bgHeader.png');
+    background-repeat: no-repeat;
+}
+
+#headimage {
+    margin-left: 839px;
+    padding-top: 50px;
+}
+
+#setTextEditor {
+    margin: 5px 0 14px 0;
+}
+
+#content {
+    width: 922px;
+    min-height: 300px;
+    padding: 1px 18px 18px 18px;
+    border: 1px solid #5c87cf;
+}
+
+#breadcrumb {
+    width: 500px;
+    margin: 12px 0 14px 0;
+    padding-bottom: 1px;
+    border-bottom: 1px solid #5c87cf;
+}
+
+#breadcrumb p {
+    padding-left: 3px;
+}
+
+ul {
+    list-style: none;
+}
+
+table.standard {
+    width: 612px;
+    background: url('../images/bgBorderbox.png');
+    background-repeat: no-repeat;
+    border: outset 1px;
+}
+
+table.standard td {
+    padding: 4px 8px 4px;
+    line-height: 1.4;
+    text-align: left;
+    border: outset 1px;
+    border-spacing: 1px;
+}
+
+table.standard .tableheader {
+    background: #5c87cf;
+}
+
+table.standard .tableheader td p {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#closedSites {
+    width: 100px;
+}
+
+div.colorbox {
+    width: 900px;
+    background: url('../images/bgBorderbox.png');
+    background-repeat: repeat-y;
+    border: 1px solid #5c87cf;
+    padding: 10px;
+}
+
+div.contentbox_top p {
+    margin-left:12px;
+}
+
+div.contentbox_body {
+    width: 342px;
+    border-right: 1px solid #888888;
+    border-left: 1px solid #888888;
+    border-bottom: 1px solid #888888;
+    padding: 8px;
+}
+
+.borderbox_dynamicwidth {
+    margin-top: 1px;
+    padding: 8px;
+    background: #ffffff;
+    border: 1px solid #7f9db9;
+}
+
+.errorbox {
+    width: 902px;
+    padding: 10px;
+    background: #ff0000;
+}
+
+.errorbox * {
+    color: #ffffff;
+}
+/* ################################################################## */
+
+
+/* 3.) Login-site */
+/* ################################################################## */
+#login {
+    width: 931px;
+    height: 436px;
+    padding: 140px 0 0 30px;
+    background: url('../images/bg_start.jpg');
+    background-repeat: no-repeat;
+}
+
+#login .loginfield {
+    width: 430px;
+    height: 220px;
+    padding: 14px 20px 0 20px;
+    background: #cdcbda;
+    opacity: 0.9;
+}
+/* ################################################################## */
+
+/* 4.) Site-Format */
+/* ################################################################## */
+.leftfloat {
+    float: left;
+}
+
+.rightfloat {
+    float: right;
+}
+
+.clear {
+    clear:both;
+}
+
+.topmargin {
+    margin-top: 12px;
+}
+
+.topmarginSmall {
+    margin-top: 8px;
+}
+
+.topmarginBig {
+    margin-top: 26px;
+}
+
+.leftmargin {
+    margin-left: 24px;
+}
+
+.leftmarginBig{
+    margin-left: 64px;
+}
+
+.leftpadding {
+    padding-left: 28px;
+}
+
+.leftpaddingSmall {
+    padding-left: 14px;
+}
+/* ################################################################## */
+
+/* 5.) Fonts */
+/* ################################################################## */
+div,p,span,a,select,li,input,select,file,textarea,submit {
+    font-size: 14px;
+    line-height: 1.3;
+    font-family: Arial,Helvetica,sans-serif;
+    color: #5c87cf;
+}
+
+.small {
+    font-size: 9px;
+}
+
+.big {
+    font-size: 16px;
+    font-weight: bolder;
+    line-height: 1.5;
+}
+
+span.white, p.white {
+    color: white;
+}
+
+p b, span b, div b {
+    font-weight: bold;
+}
+
+.underline {
+    text-decoration: underline;
+}
+/* ################################################################## */
+
+
+/* 6.) Links */
+/* ################################################################## */
+a {
+    text-decoration: underline;
+}
+/* ################################################################## */
+
+
+/* 7.) Input-fields generel */
+/* ################################################################## */
+textarea, select, checkbox, input {
+    border: 1px solid #5C87CF;
+}
+
+textarea {
+    padding: 6px;
+}
+
+select {
+    padding: 0 8px 8px 8px;
+}
+
+option {
+    text-transform: none;
+    padding: 2px;
+}
+
+option:hover, option:active {
+    background: #fbf216;
+    cursor: pointer;
+}
+
+optgroup {
+    padding-top: 8px;
+    font-size: 14px;
+}
+
+optgroup option {
+    padding-left: 24px;
+}
+
+input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    vertical-align: middle;
+}
+
+input[type="text"], input[type="password"] {
+    width: 220px;
+    height: 18px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #fbf216;
+}
+
+.button {
+    width: 100px;
+    height: 24px;
+    padding-bottom: 1px;
+    border: 0;
+    background: url('../images/button1.png') no-repeat 0 0;
+}
+
+.button:hover {
+    background: url('../images/button1.png') no-repeat 0 -24px;
+}
+
+.fullarea {
+    width: 860px;
+    height: 480px;
+}
+
+.middlearea {
+    width: 660px;
+    height: 266px;
+}
+
+.smallarea {
+    width: 660px;
+    height: 104px;
+}
+
+.selectStandard {
+    width: 449px;
+    height: 230px;
+    padding: 0 8px 8px 8px;
+}
+
+.file1 {
+    width: 180px;
+    height: 24px;
+}
+/* ################################################################## */
+
+
+/* 8.) - Top-Menu */
+/* ################################################################## */
+#navigationcontainer {
+    width: 960px;
+    height: 27px;
+    background: #5C87CF;
+}
+
+#navigationcontainer > div:first-child {
+    width: 660px;
+}
+
+#nav ul {
+    margin: 0 0 4px 9px;
+    padding: 3px 0 3px 3px;
+    list-style-type: none;
+    list-style-position: outside;
+    line-height: 1.5em;
+}
+
+#nav a{
+    display: block;
+    padding: 2px 5px;
+    border: 1px solid #5c87cf;
+    color: #fff;
+    text-decoration: none;
+    background-color: #5c87cf;
+}
+
+#nav a:hover{
+    background-color: #fbf216;
+    color: #fff;
+}
+
+#nav li{
+    float: left;
+    position: relative;
+}
+
+#nav ul {
+    position: absolute;
+    display: none;
+    width: 12em;
+    top: 1.5em;
+}
+
+#nav li ul a{
+    width: 12em;
+    height: auto;
+    float: left;
+}
+
+#nav ul ul{
+    top: auto;
+}	
+
+#nav li ul ul {
+    left: 12em;
+    margin: 0px 0 0 12px;
+}
+
+#nav li:hover ul ul, #nav li:hover ul ul ul, #nav li:hover ul ul ul ul{
+    display: none;
+}
+
+#nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li li li li:hover ul{
+    display: block;
+}
+
+#langmenu {
+    width: 269px;
+    height: 26px;
+    padding-left: 2px;
+    margin-right: 21px;
+}
+
+.choisedLang {
+    width: 39px;
+    height: 26px;
+    opacity: 0.3;
+    border: 1px solid #fbf216;
+    background: #cbcbc9;
+}
+/* ################################################################## */
+
+
+/* 9.) Save-Button Confirmation */
+/* ################################################################## */
+.ok {
+    width: 176px;
+    height: 22px;
+    display: block;
+    margin: -22px 0 0 116px;
+    background: url('../images/symbol_ok.png');
+    background-repeat: no-repeat;
+}
+
+.ok * {
+    padding-top: 2px;
+    line-height: 22px;
+}
+/* ################################################################## */
+
+
+/* 10.) GUI's' */
+/* ################################################################## */
+#gui input[type="text"] {
+    width: 600px;
+    height: 19px;
+}
+
+#gui input[type="text"]:focus {
+    border: 1px solid #fbf216;
+}
+
+#dialogEditor, #dynamicContent, #displayNone {
+    display: none;
+}
+
+#gui div.errorbox p {
+    color: #ffffff;
+}
+
+#gui img {
+    cursor: pointer;
+}
+
+#gui img, #gui span, #gui li, #gui input, #gui select, #gui textarea, #gui p {
+    vertical-align: middle;
+    padding: 0;
+}
+
+#gui span span {
+    vertical-align: top;
+}
+
+#gui ul li, #gui .colorbox div.leftfloat {
+    line-height: 23px;
+    padding: 4px 0 4px 0;
+}
+
+#gui select{
+    width: 260px;
+    height: 20px;
+}
+
+#gui textarea {
+    width: 600px;
+    height: 180px;
+}
+
+#gui .inputTextHalfSize input[type="text"] {
+    width: 260px;
+}
+
+#gui .inputTextHalfSize textarea {
+    width: 260px;
+    height: 100px;
+}
+
+#gui .off {
+    display: none;
+}
+
+#gui .headerText p {
+    margin: 0 0 1px 8px;
+}
+
+#gui .textInputLabel {
+    width: 150px;
+    text-align: right;
+    padding-top: 2px;
+    padding-right: 4px;
+}
+
+/* unit-box click-arrow */
+#gui .dynamicarrow {
+    font-size: 28px;
+}
+
+#gui .headerText span:hover, #gui .activeHeader, .menuChoiceList b, .menuChoiceList span:hover {
+    color: #F3E53F;
+    cursor: pointer;
+}
+
+#gui .menuChoiceList {
+    width: 108px;
+    background: #fff;
+    border: 1px solid #5C87cf;
+    overflow: auto;
+    padding: 6px;
+}
+
+#gui .headerBorder {
+    margin-left: 12px;
+}
+
+#gui .headerLine {
+    width: 100%;
+    height: 1px;
+    margin: 20px 0 20px 0;
+    border-bottom: 1px solid #5c87cf;
+}
+
+#gui #messages {
+    width: 200px;
+    height: 30px;
+    padding-left: 468px;
+    top: 152px;
+    margin: 0 auto 0 auto;
+    position: absolute;
+    z-index: 200;
+}
+
+#gui #messages p {
+    margin-bottom: 2px;
+    padding: 12px;
+    border: 3px solid #5C87CF;
+    color: #fff;
+}
+
+#gui #messages #newInstanceMessage, #gui #messages #newEntryMessage {
+    background: #9fd40e;
+}
+
+#gui #messages #deleteInstanceMessage, #gui #messages #deleteEntryMessage {
+    background: #c7353a;
+}
+/* ################################################################## */
