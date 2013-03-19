@@ -1,265 +1,304 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
+    <head>        
         <meta charset="UTF-8">
 
         <title>js mediadirectplayer (full version)</title>
-        <link rel="stylesheet" href="mediaplayer.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-        
-        <script type="text/javascript" src="model.js"></script>
-        <script type="text/javascript" src="controller.js"></script>
-        <script type="text/javascript" src="mediadirectplayer.js"></script>
+        <link rel="stylesheet" href="mediadirectplayer.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+        <script type="text/javascript" src="mdp_envirement_m.js"></script>
+        <script type="text/javascript" src="mdp_m.js"></script>
+        <script type="text/javascript" src="mdp_vm.js"></script>
     </head>
     <body>
-                    <div>
-                        <p>
-                            Plugin: Media-Direct-Player (Full Version), Version: 0.9 (11.02.2012)<br />
-                            <br />
-                            Hier werden zwei voneinander unabhängige Media-Direct-Player-Instanzen als Beispiel präsentiert. Sie laufen unabhängig voneinander
-                            und es können Audio- oder Video-Media-Daten gemischt präsentiert werden. Als Fallback wird ein Flash-Player verwendet. Die Browser-Erkennung und
-                            die darauf folgende Ausspielung ist ebenfalls integriert.<br>
-                            <br>
-                            Download und Anleitung finden Sie unter: <a href="http://delightnet.de">http://delightnet.de (Rubrik jsextensions - mediadirectplayer)</a><br>
-                            Ihr Webentwickler, Gunnar von Spreckelsen
-                        </p>
+        <div id="content">
+            <div id="showEnvData">
+            </div>
+            <div>
+                <br>
+                <h1>
+                    Plugin: Media-Direct-Player Modul-Version, Version: 0.9 (15.03.2013)
+                </h1>
+                <p>
+                    Hier werden zwei voneinander unabhängige Media-Direct-Player-Instanzen als Beispiel präsentiert. Sie laufen unabhängig voneinander
+                    und es können Audio- oder Video-Media-Daten gemischt präsentiert werden. Als Fallback wird ein Flash-Player (jarisplayer) verwendet. Die
+                    automatische System-Erkennung im Rahmen einer dynamischen Ausspielung auf unterschiedlichen Devices ist ebenfalls integriert.<br>
+                    <br>
+                    Im allgemeinen leistet Media-Direct-Player Modul-Version folgendes:<br>
+                    - HTML5-Umgebung ohne Skript-Code (data-binding)<br>
+                    - Flash-Fallback<br>
+                    - getrennte Module für universellen und unabhängigen Einsatz<br>
+                    - Modi schaltbar für die Kombination vorbis/mp4/ogg/mp3, matruska/mp4/ogg/mp3 oder matruska/mp4/mp3/mp3<br>
+                    <br>
+                    <a href="http://ihrwebentwickler.de">Ihr Webentwickler, Gunnar von Spreckelsen</a>, 16. März 2013<br>
+                    <br>
+                </p>
 
-                        <div>
-                            <div class="mediaGalery">
-                                <div class="leftfloat">
-                                    <video controls="controls" tabindex="0">
-                                    </video>
-                                    <audio controls autobuffer>
-                                    </audio>
-                                    <div id="mediaError1" class="video">
-                                        <p>
-                                            Sorry, der Medientitel kann nicht abgespielt werden, entweder ist Ihr Browser zu veraltet oder es konnte nicht fehlerfrei
-                                            ermittelt werden, ob Ihr Browser die Abspielfähigkeit besitzt.
-                                        </p>
-                                    </div>
-                                    <div id="mediaWelcome1" class="video" style="background: url('/public/extensions/MediaDirectPlayer/images/1/welcome.jpg') no-repeat;">
-                                    </div>
+                <div id="mediaGalery1">
+                    <div class="viewArea">
+                        <div class="mediaArea">
+                            <div class="mediaViewWelcome">
+                            </div>
+                            <video controls tabindex="0">
+                            </video>
+                            <audio controls>
+                            </audio>
+                            <video class="flashFallbackPlayer" controls>
+                                <object data="jarisplayer.swf" type="application/x-shockwave-flash">
+                                    <param value="jarisplayer.swf" name="mediaFbPlayer" />
+                                </object>
+                            </video>
+                        </div>
+                        <div class="infoArea">
+                            <div class="mediaInfobox">
+                                <div class="mediaTitle">
                                 </div>
-                                <div id="infobox1" class="leftfloat mediaInfobox">
-                                    <div class="mediaTitle">
-                                    </div>
-                                    <div class="mediaDescription">
-                                        Herzlich Willkommen, wählen Sie unten Ihren gewünschten Titel aus.
-                                    </div>
-                                </div>
-
-                                <div class="clear">
-                                </div>
-
-                                <div id="playerGalery1" class="MediaDirectPlayer topmargin">
-                                    <div class="wrapper">
-                                        <ul>				
-                                            <li class="media1">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/1.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        Klavier Jericho
-                                                    </span>
-                                                </div>
-                                            </li>		<li class="media2">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/2.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        Zachte winter
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="media3">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/3.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        safaribus door de Beekse Bergen
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="media4">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/4.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        Zeldzame vissen
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="media5">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/5.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        Zuid-Limburg in herfsttooi
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="media6">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/6.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        Kapmeeuwen in natuurreservaat
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="media7">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/7.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        De 20e Nationale Boomfeestdag
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="media8">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/8.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        Waterverontreiniging
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="media9">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/9.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        15.000 exotic butterflies
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="media10">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/1/sliderimages/10.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        birds island Griend
-                                                    </span>
-                                                </div>
-                                            </li>
-
-                                        </ul>
-                                    </div>
+                                <div class="mediaDescriptionBig">
+                                    Herzlich Willkommen in der Medien-Galerie 1, wählen Sie unten Ihren gewünschten Titel aus.
                                 </div>
                             </div>
-
-                            <script type="text/javascript">
-                                $(document).ready(function () {
-                                    delightcms.mediadirectplayer.objMedia1 = {
-
-                                    };
-        
-                                    $('#playerGalery1').MediaDirectPlayer({
-                                        autostart: 'off',
-                                        playerInstance: 1,
-                                        mediaData: delightcms.mediadirectplayer.objMedia1,
-                                        arrayBrowserData: [global.browser, global.version]
-                                    });
-                                });
-                            </script>
+                            <div class="mediaError">
+                                Entschuldigung, der Medientitel kann nicht abgespielt werden, das sollte nicht passieren. Möglicherweise haben Sie kein Flash für Ihre
+                                Browser-Umgebung installiert oder ein Video- oder Audio-Link fuktioniert nicht.
+                            </div>
                         </div>
-                        <div class="topmargin">
+                        <div class="clear">
                         </div>
-                        <div class="topmargin">
-                            <div class="mediaGalery" id="mediaGalery2">
-                                <div class="leftfloat">
-                                    <video id="videoPlayer2" controls="controls" tabindex="0" fullscreen="false" style="width: 300px;height:225px;">
-                                    </video>
-                                    <audio id="audioPlayer2" controls autobuffer>
-                                    </audio>
-                                    <div id="mediaError2" class="video">
-                                        <p>
-                                            Sorry, der Medientitel kann nicht abgespielt werden, entweder ist Ihr Browser zu veraltet oder es konnte nicht fehlerfrei
-                                            ermittelt werden, ob Ihr Browser die Abspielfähigkeit besitzt.
-                                        </p>
-                                    </div>
-                                    <div id="mediaWelcome2" class="video" style="background: url('/public/extensions/MediaDirectPlayer/images/2/welcome.jpg') no-repeat;">
-                                    </div>
-                                </div>
-                                <div id="infobox2" class="leftfloat mediaInfobox">
-                                    <div class="mediaTitle">
-                                    </div>
-                                    <div class="mediaDescription">
-                                        Herzlich Willkommen, wählen Sie unten Ihren gewünschten Titel aus.
-                                    </div>
-                                </div>
+                    </div>
 
-                                <div class="clear">
+                    <div class="playerData">
+                        <ul>				
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        Klavier Joshua
+                                    </span>
                                 </div>
+                                <div class="mediaDescription">
+                                    Joshua fought the battle of Jericho, umgangssprachlich auch oft Joshua fit the battle
+                                    of Jericho, ist ein Spiritual.
+                                </div>
+                                <div class="mediaLinkAudio">
+                                    https://dl.dropbox.com/u/78197792/Battle%20of%20Jericho;*
+                                </div>
+                            </li>
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        Zachte winter
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    M2 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openbeelden.nl/files/13/13046.13039.WEEKNUMMER750-HRE0001C924;*
+                                </div>
+                            </li>            
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        safaribus door de Beekse Bergen
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    M3 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openbeelden.nl/files/08/8910.8901.BG_10569;*
+                                </div>
+                            </li>	
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        Zeldzame vissen
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    M4 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openbeelden.nl/files/15/15421.15410.WEEKNUMMER703-HRE00015FE9;*
+                                </div>
+                            </li>	
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        Zuid-Limburg in herfsttooi
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    M5 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openimages.eu/files/63/63476.63465.WEEKNUMMER644-HRE0001A794;*
+                                </div>
+                            </li>	
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        Kapmeeuwen in natuurreservaat
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    M6 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openimages.eu/files/12/12724.12714.WEEKNUMMER712-HRE00015B05;*
+                                </div>
+                            </li>	
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        De 20e Nationale Boomfeestdag
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    M7 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openimages.eu/files/12/12302.12294.WEEKNUMMER761-HRE00013C05;*
+                                </div>
+                            </li>	
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        Waterverontreiniging
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    M8 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openimages.eu/files/12/12502.12494.WEEKNUMMER703-HRE000151EF;*
+                                </div>
+                            </li>	
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        15.000 exotic butterflies
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    M9 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openbeelden.nl/files/15/15401.15394.WEEKNUMMER702-HRE0001B62E;*
+                                </div>
+                            </li>	
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        birds island Griend
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    M10 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openbeelden.nl/files/12/12277.12269.WEEKNUMMER753-HRE0001AFF9;*
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-                                <div id="playerGalery2" class="MediaDirectPlayer topmargin">
-                                    <div class="wrapper">
-                                        <ul>				
-                                            <li class="media1">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/2/sliderimages/1.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        GAL2 15.000 exotic butterflies
-                                                    </span>
-                                                </div>
-                                            </li>		<li class="media2">
-                                                <div class="sliderimage" style="background: url('/public/extensions/MediaDirectPlayer/images/2/sliderimages/2.jpg') no-repeat;">
-                                                    <span class="play">
-                                                    </span>
-                                                    <span class="sliderimageTitle">
-                                                        Menuett
-                                                    </span>
-                                                </div>
-                                            </li>
+                <div>
+                    <br>
+                </div>
 
-                                        </ul>
-                                    </div>
+                <div id="mediaGalery2">
+                    <div class="viewArea">
+                        <div class="mediaArea">
+                            <div class="mediaViewWelcome">
+                            </div>
+                            <video controls tabindex="0">
+                            </video>
+                            <audio controls>
+                            </audio>
+                            <video class="flashFallbackPlayer" controls>
+                                <object data="jarisplayer.swf" type="application/x-shockwave-flash">
+                                    <param value="jarisplayer.swf" name="mediaFbPlayer" />
+                                </object>
+                            </video>
+                        </div>
+                        <div class="infoArea">
+                            <div class="mediaInfobox">
+                                <div class="mediaTitle">
+                                </div>
+                                <div class="mediaDescriptionBig">
+                                    Herzlich Willkommen in der Medien-Galerie 2, wählen Sie unten Ihren gewünschten Titel aus.
                                 </div>
                             </div>
-
-                            <script type="text/javascript">
-                                $(document).ready(function () {
-                                    delightcms.mediadirectplayer.objMedia2 = {
-                                        media1: {
-                                            mediaTitle: "GAL2 15.000 exotic butterflies",
-                                            mediaPoster: "http://delightcms.delightnet.de/public/images/home.jpg",
-                                            mediaDescription: "GAL2, Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike",
-                                            mediaLink1: "http://www.openbeelden.nl/files/15/15401.15394.WEEKNUMMER702-HRE0001B62E.ogv",
-                                            mediaLink2: "http://www.openbeelden.nl/files/15/15401.15394.WEEKNUMMER702-HRE0001B62E.mp4"
-                                        },
-                                        media2: {
-                                            mediaTitle: "Menuett",
-                                            mediaPoster: "http://delightcms.delightnet.de/public/images/home.jpg",
-                                            mediaDescription: "Ein Menuett von Leopold Mozart (1719 - 1787). Das Menuett war ein beliebter Tanz aus der Zeit des 17. Jahrhunderts. Es ist im 3/4-Takt verfasst.",
-                                            mediaLink1: "https://dl.dropbox.com/u/78197792/Menuett.ogg",
-                                            mediaLink2: "https://dl.dropbox.com/u/78197792/Menuett.mp3"
-                                        }
-                                    };
-        
-                                    $('#playerGalery2').MediaDirectPlayer({
-                                        autostart: 'off',
-                                        playerInstance: 2,
-                                        mediaData: delightcms.mediadirectplayer.objMedia2,
-                                        arrayBrowserData: [global.browser, global.version]
-                                    });
-                                });
-                            </script>
+                            <div class="mediaError">
+                                Entschuldigung, der Medientitel kann nicht abgespielt werden, das sollte nicht passieren. Möglicherweise haben Sie kein Flash für Ihre
+                                Browser-Umgebung installiert oder ein Video- oder Audio-Link fuktioniert nicht.
+                            </div>
                         </div>
-                    </section>
-                </article>
-            </section>
-            <footer>
-                <small>Copyright Your Name Here 2012. All Rights Reserved.</small>
-            </footer>
-        </section>
+                        <div class="clear">
+                        </div>
+                    </div>
 
-        <script>
-            var _gaq=[['_setAccount','1234'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-                g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-                s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
+                    <div class="playerData">
+                        <ul>				
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        GAL2 butterflies 
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    Gal2 Beschreibung<br>
+                                    M10 - Urheber: Polygoon-Profilti (producent) / Nederlands Instituut voor Beeld en Geluid (beheerder), Lizenz: Creative Commons Attribution-Share Alike
+                                </div>
+                                <div class="mediaLinkVideo">
+                                    http://www.openbeelden.nl/files/15/15401.15394.WEEKNUMMER702-HRE0001B62E;*
+                                </div>
+                            </li>
+                            <li>
+                                <div class="sliderimage">
+                                    <span class="play">
+                                    </span>
+                                    <span class="sliderimageTitle">
+                                        Menuett
+                                    </span>
+                                </div>
+                                <div class="mediaDescription">
+                                    Ein Menuett von Leopold Mozart (1719 - 1787). Das Menuett war ein beliebter Tanz aus der Zeit des 17. Jahrhunderts.
+                                    Es ist im 3/4-Takt verfasst.
+                                </div>
+                                <div class="mediaLinkAudio">
+                                    https://dl.dropbox.com/u/78197792/Menuett;*
+                                </div>
+                            </li>            
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -2,165 +2,130 @@
     Document   : MediaDirectPlayer full-version
     version    : 0.9 (11.02.2012)
     Author     : Gunnar von Spreckelsen <service@ihrwebentwickler.de>
-    Description:
-        Styling of media-direct-player (full version)
+    Description: Styling of media-direct-player (full version)
 
     Content:
-    1.) MediaDirectPlayer
-    2.) JQuery Slider-elements
-    3.) Videoinfo-Box
+    1.) browser-reset
+    2.) site-design
+    3.) Media-Direct-Player View-Area
+    4.) Media-Direct-Player Slider and Player-Data
+    5.) JQuery Slider-elements
+
 */
-
-
-/* 1.) MediaDirectPlayer */
-/* ########################################################################## */
-.mediaGalery {
-    width: 724px;
-    padding: 18px;
-    background: white;
-    background: url("images/bgMediaGalery.png") repeat-y;
-}
-
-video, audio {
-    width: 300px;
-    height:225px;
-    margin-left: 43px;
-}
-
-.MediaDirectPlayer {
-    position: relative;
-    height: 126px;
-}
-
-.MediaDirectPlayer .wrapper {
-    width: 644px;
-    margin-left: 37px;
-    overflow: auto;
-    min-height: 10em;
-    position: absolute;
-    top: 0;
-}
-
-.MediaDirectPlayer .wrapper ul {
-    width: 9999px;
-    list-style-image: none;
-    list-style-position: outside;
-    list-style-type: none;
+/* 1.) browser-reset */
+/* ############################################################### */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
     margin: 0;
     padding: 0;
-    position: absolute;
-    top: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
-.MediaDirectPlayer ul li {
-    padding-left: 6px;
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
     display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* ############################################################### */
+
+
+/* 2.) site-design */
+/* ########################################################################## */
+body {
+    width: 100%;
+    background: #8db4e9;
+}
+
+#content {
+    width: 760px;
+    margin: 0 auto 0 auto;
+    padding: 17px;
+    border-left: 16px solid #e1053e;
+    background: #9ec4f7;
+}
+
+div,a,p,span {
+    font-family: "Arial";
+    color: #061427;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.clear {
+    clear: both;
+}
+/* ########################################################################## */
+
+
+/* 3.) Media-Direct-Player View-Area */
+/* ########################################################################## */
+#mediaGalery1, #mediaGalery2 {
+    width: 728px;
+    padding: 16px;
+    background: white;
+    background: url("images/bgMediaGalery.png");
+}
+
+.viewArea .mediaArea {
+    width: 310px;
+    float:left;
+}
+
+.viewArea .infoArea {
+    width: 418px;
     float: left;
 }
 
-.MediaDirectPlayer ul li .sliderimage {
-    width: 200px;
-    height: 120px;
-    border: 4px solid #000;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
+video, audio, .mediaViewWelcome {
+    width: 300px;
+    height: 225px;
 }
 
-.MediaDirectPlayer ul li .sliderimage:hover {
-    cursor: pointer;
-    border: 4px solid #fff;
-}
-
-.MediaDirectPlayer ul li .sliderimage span.play {
-    width: 200px;
-    height: 96px;
-    display: block;
-    background: url("../images/slider/playbutton_n.png") no-repeat center;
-    filter: alpha(opacity=70);
-    -moz-opacity: 0.70;
-    opacity: 0.70;
-}
-
-.MediaDirectPlayer ul li .sliderimage span.play:hover {
-    filter: alpha(opacity=90);
-    -moz-opacity: 0.90;
-    opacity: 0.90;
-    background: url("../images/slider/playbutton_r.png") no-repeat center;
-}
-
-.MediaDirectPlayer ul li .sliderimage .sliderimageTitle {
-    width: 200px;
-    height: 24px;
-    line-height: 24px;
-    text-align: center;
+.mediaTitle, .mediaDescriptionBig, .mediaError {
     color: #fff;
-    font-size: 12px;
-    vertical-align: baseline;
-    background: #000;
-    background: url('../images/slider/bgVideoname.png') repeat-x 0 0;
-    position: absolute;
-    top: 100px;
 }
 
-.MediaDirectPlayer .arrow {
-    display: block;
-    width: 37px;
-    height: 37px;
-    background: url('../images/slider/arrow.png') no-repeat 0 0;
-    text-indent: -999px;
-    position: absolute;
-    top: 37px;
-    cursor: pointer;
-}
-
-.MediaDirectPlayer .forward, .MediaDirectPlayer .back {
-    top: 34px;
-}
-
-.MediaDirectPlayer .forward {
-    background-position: 0 0;
-    left: 685px;
-}
-
-.MediaDirectPlayer .forward:hover {
-    background-position: 0 -37px;
-}
-
-.MediaDirectPlayer .back {
-    background-position: 0 -74px;
-    left: 0;
-}
-
-.MediaDirectPlayer .back:hover {
-    background-position: 0 -111px;
-}
-/* ########################################################################## */
-
-
-/* 2.) JQuery Slider-elements */
-/* ########################################################################## */
-.MediaDirectPlayer ul li .darkBackground {
-    background: #000;
-    opacity: 1;
-}
-
-.MediaDirectPlayer ul li .MediaDirectPlayerClick {
-    border: 4px solid #fff;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-}
-
-.video {
-    width: 280px;
-    height: 205px;
-    background: #000000;
-    padding: 10px;
-}
-/* ########################################################################## */
-
-
-/* 3.) Videoinfo-Box */
-/* ########################################################################## */
 .mediaTitle {
     font-weight: bold;
     margin-bottom: 10px;
@@ -168,18 +133,94 @@ video, audio {
     border-bottom: 1px solid #fff;
 }
 
-.mediaTitle, .mediaDescription {
-    color: #fff;
+.mediaInfobox, .mediaError { 
+    width: 394px;
+    height: 201px;
+    padding: 12px;
+    background: #000;
+    overflow: auto;
+}
+/* ########################################################################## */
+
+
+/* 4.) Media-Direct-Player Slider and Player-Data */
+/* ########################################################################## */
+.playerData {
+    width: 100%;
+    height: 145px;
+    margin-top: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
-.mediaInfobox { 
-    width: 286px;
-    height: 193px;
-    margin-left: 18px;
-    padding: 12px;
-    background: black;
+.playerData ul {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    list-style-type: none;
+}
+
+.playerData ul li {
+    display: inline-block;
+    margin-left: 2px;
+}
+
+.playerData ul li:first-child {
+    margin-left: 0;
+}
+
+.playerData ul li .sliderimage {
+    width: 200px;
+    height: 120px;
     border: 4px solid #000;
-    opacity: 0.80;
-    overflow: auto;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+.playerData ul li .sliderimage:hover {
+    cursor: pointer;
+    border: 4px solid #fff;
+}
+
+.playerData ul li .sliderimage span.play {
+    width: 200px;
+    height: 96px;
+    display: block;
+    background: url("images/slider/playbutton_n.png") no-repeat center;
+    opacity: 0.70;
+}
+
+.playerData ul li .sliderimage span.play:hover {
+    opacity: 0.90;
+    background: url("images/slider/playbutton_r.png") no-repeat center;
+}
+
+.playerData ul li .sliderimage .sliderimageTitle {
+    width: 200px;
+    height: 24px;
+    display: block;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    vertical-align: bottom;
+    background: #000;
+    background: url('images/slider/bgVideoname.png') repeat-x 0 0;
+}
+/* ########################################################################## */
+
+
+/* 6.) JQuery Slider-elements */
+/* ########################################################################## */
+.darkBackground {
+    background: #000;
+    opacity: 1;
+}
+
+.playerData ul li .sliderClick {
+    border: 4px solid #fff;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
 }
 /* ########################################################################## */
