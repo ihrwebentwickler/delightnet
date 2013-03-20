@@ -59,7 +59,7 @@ jQuery(document).ready(function () {
             jQuery('.playerData').css('margin-left', (intWidthGalery - intWidthSlider) / 2);      
         };
         
-        function setActivMediaToPause () { 
+        function setActivMediaToPause(activId) { 
             var mediaDom;
             var arrayMediaTypes = ['video', 'audio'];
             var arrayMediaTypesLength = arrayMediaTypes.length;
@@ -67,7 +67,7 @@ jQuery(document).ready(function () {
             for (var i = 1; i <= intNbMediaGaleries; i++){
                 for (var j = 0;j < arrayMediaTypesLength; j++ ) {
                     mediaDom = document.getElementById(arrayMediaTypes[j] + i + 'Instance');
-                    if (!mediaDom.paused) {
+                    if (!mediaDom.paused && activId != arrayMediaTypes[j] + i + 'Instance') {
                         mediaDom.pause();
                     }
                 }
@@ -124,7 +124,7 @@ jQuery(document).ready(function () {
             writeMediaDesciptionText(mediaInstance, intClickedElem);
   
             var strMediaTag = getCurrentMediaTag(mediaInstance, strMediaType, intPlayerCode);
-            setActivMediaToPause();
+            setActivMediaToPause(strMediaType + mediaInstance + 'Instance');
             
             var strVideoLink = arrayVideoLinks[intPlayerCode - 1] + '.' + strFileType;
             jQuery(strMediaTag).html('<source></source>').attr('src', strVideoLink).attr('type', strMediaType + '/' + strFileType);
@@ -136,6 +136,12 @@ jQuery(document).ready(function () {
                 showMedia(mediaInstance, strMediaType, strMediaTag);
             }
         });
+        
+        // by click of player-instance: set unactiv media-players to pause 
+        jQuery(document).on("click", '[id*="Instance"]', function(){
+            setActivMediaToPause(jQuery(this).attr('id'));
+        });
+
         function _init() {
             // if test-output is activated
             if (jQuery('#showEnvData').length > 0 ) {
