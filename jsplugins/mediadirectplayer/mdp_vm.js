@@ -107,6 +107,18 @@ jQuery(document).ready(function () {
             var strMediaDesciptionText = jQuery('#mediaGalery' + mediaInstance + ' .playerData ul li:eq(' + intClickedElem + ') .mediaDescription').html();
             jQuery('#mediaGalery' + mediaInstance + ' .mediaDescriptionBig').html(strMediaDesciptionText);
         }
+        
+        function buildVideoLink(strAllMediaLinks, strFileType, intPlayerCode) {
+            var arrayVideoLinks = strAllMediaLinks.split(";");
+            if (arrayVideoLinks[1]) {
+                var strTestJoker = arrayVideoLinks[1].match(/\*/g);
+                if (strTestJoker !== null) {
+                    arrayVideoLinks[1] = arrayVideoLinks[0]; 
+                }
+            }
+            arrayVideoLinks[intPlayerCode - 1] = arrayVideoLinks[intPlayerCode - 1].replace(/\s/g,'');
+            return arrayVideoLinks[intPlayerCode - 1] + '.' + strFileType;
+        }
 
         // play media by click
         jQuery(document).on("click", '.playerData ul li', function(){
@@ -117,21 +129,19 @@ jQuery(document).ready(function () {
             var strMediaType = jQuery(this).children('[class*=mediaLink]').attr('class').split("mediaLink")[1].toLowerCase();
             var intPlayerCode = objMediaplayer.getPlayerCode();
             var strFileType = objMediaplayer.getFileType(strMediaType);
-            var arrayVideoLinks = strAllMediaLinks.split(";");
-            arrayVideoLinks[1] = (arrayVideoLinks[1] && arrayVideoLinks[1] == '*') ? arrayVideoLinks[0] : arrayVideoLinks[1];
-  
-            setActivGaleryItem(mediaInstance, intClickedElem);
-            writeMediaDesciptionText(mediaInstance, intClickedElem);
-  
+            
             var strMediaTag = getCurrentMediaTag(mediaInstance, strMediaType, intPlayerCode);
             setActivMediaToPause(strMediaType + mediaInstance + 'Instance');
             
-            var strVideoLink = arrayVideoLinks[intPlayerCode - 1] + '.' + strFileType;
-            jQuery(strMediaTag).html('<source></source>').attr('src', strVideoLink).attr('type', strMediaType + '/' + strFileType);
+            var strVideoLink = buildVideoLink(strAllMediaLinks, strFileType, intPlayerCode);
+            jQuery(strMediaTag).html('<source></source>').attr('src', strVideoLink).attr('type', strMediaType + '/' + strFileType);;
             
             var mediaDomObj = document.getElementById(strMediaType + mediaInstance + 'Instance');
             hasPlayError = objMediaplayer.playMedia(mediaDomObj);
-                
+            
+            setActivGaleryItem(mediaInstance, intClickedElem);
+            writeMediaDesciptionText(mediaInstance, intClickedElem);
+            
             if (hasPlayError === false) {
                 showMedia(mediaInstance, strMediaType, strMediaTag);
             }

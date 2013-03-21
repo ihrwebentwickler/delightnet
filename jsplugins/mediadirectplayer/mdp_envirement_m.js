@@ -1,6 +1,6 @@
 var envirement = envirement || {};
 
-var envirement = (function () {
+envirement = (function () {
     var strUserAgent = navigator.userAgent;
   
     /*
@@ -154,7 +154,7 @@ var envirement = (function () {
         browserIdentifier: "chrome",
         minVersion: 3,
         versionSearch: "Chrome",
-        playerCode: 2
+        playerCode: 1
     },
     {
         browserName: "OmniWeb",
