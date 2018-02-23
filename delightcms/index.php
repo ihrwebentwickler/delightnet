@@ -1,26 +1,17 @@
 <?php
-/*
- * Frontcontroller Start
+/* index.php
+ * frontcontroller start website-env
+ * The index.php in the root-folder serves as start-point into frontend-applikation.
  *
+ * avaible option:
+ * error_reporting(E_ALL)  use error_reporting(0); to turn off showing erros in productiv-env
  *
  * @author Gunnar von Spreckelsen <service@ihrwebentwickler.de>
- * @version 3.0 (19.11.2011)
+ * @version 5.1 (02.03.2014)
  */
 
-namespace delightnet\delightos;
-
-ini_set("display_errors", true);
+// error_reporting(0)
 error_reporting(E_ALL);
 
-require_once "delightnet/delightos/Autoloader.class.php";
-Autoloader::init();
-
-$resolver = new FileSystemCommandResolver();
-$controller = new FrontController($resolver);
-
-$request = new HttpRequest();
-$response = new HttpResponse();
-
-$controller->handleRequest($request, $response);
-// echo memory_get_usage(true);
-
+// Register Autoload, set include path start whole output-passage
+require_once "delightnet/initLoader.php";

@@ -1,5 +1,3 @@
-# activate following row, if your application does not work (f.e. 1&1-webspace)
-AddHandler php53-cgi .php
 AddDefaultCharset utf-8
 
 <IfModule mod_autoindex.c>
@@ -36,8 +34,8 @@ AddType video/webm webmv
 php_value upload_max_filesize 20M
 php_value post_max_size 20M
 
-ErrorDocument 400 /error.html
-ErrorDocument 401 /error.html
-ErrorDocument 403 /error.html
-ErrorDocument 404 /error.html
-ErrorDocument 500 /error.html
+ErrorDocument 400 /404.html
+ErrorDocument 401 /404.html
+ErrorDocument 403 /404.html
+ErrorDocument 404 /404.html
+ErrorDocument 500 /404.html
