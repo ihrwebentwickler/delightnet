@@ -6,5 +6,5 @@
 </p>
 
 <div class="topmargin">
-    {ext:OUTPUT_BLOGGER1}
+    {EXT:BLOGGER1}
 </div>

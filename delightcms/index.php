@@ -1,7 +1,7 @@
 <?php
 /* index.php
  * frontcontroller start website-env
- * The index.php in the root-folder serves as start-point into frontend-applikation.
+ * The index.php in the root-folder serves as start-point into frontend-application.
  *
  * avaible option:
  * error_reporting(E_ALL)  use error_reporting(0); to turn off showing erros in productiv-env

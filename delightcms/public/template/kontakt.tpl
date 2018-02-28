@@ -1,1 +1,1 @@
-{ext:CONTACT1}
+{EXT:CONTACT1}

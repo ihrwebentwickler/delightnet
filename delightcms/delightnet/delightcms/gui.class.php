@@ -225,7 +225,7 @@ class Gui {
      * @param string $strRgb
      * @return array
      */
-    public function hex2rgb($strRgb) {
+    static function hex2rgb($strRgb) {
         return array(
             hexdec(substr($strRgb, 0, 2)),
             hexdec(substr($strRgb, 2, 2)),
