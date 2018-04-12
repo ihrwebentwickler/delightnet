@@ -12,10 +12,10 @@ namespace delightnet\delightos;
 ini_set("display_errors", true);
 error_reporting(E_ALL);
 
-require_once "delightnet/delightcms/delightcmsErrorHandler.php";
+require_once "../delightnet/delightcms/delightcmsErrorHandler.php";
 set_error_handler ('delightcmsErrorHandler');
 
-require_once "delightnet/delightos/Autoloader.class.php";
+require_once "../delightnet/delightcms/Autoloader.class.php";
 Autoloader::init();
 
 $resolver = new FileSystemCommandResolver();
@@ -24,4 +24,4 @@ $controller = new FrontController($resolver);
 $request = new HttpRequest();
 $response = new HttpResponse();
 
-$controller->handleCommandRequest($request, $response);
+$controller->handleRequest($request, $response);

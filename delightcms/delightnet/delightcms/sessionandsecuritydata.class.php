@@ -14,10 +14,8 @@ namespace delightnet\delightcms;
 use delightnet\delightos\Filehandle;
 
 final class SessionAndSecurityData {
-
     private $cookiename;
-    private $cypher;
-    private $mode;
+    const SESS_CIPHER = 'aes-128-cbc';
 
     public function __construct() {
         ini_set('session.use_cookies', 1);
@@ -25,17 +23,14 @@ final class SessionAndSecurityData {
         ini_set('session.use_trans_sid', 0);
         ini_set('session.cookie_lifetime', 0);
 
-        $this->sessionUserData = parse_ini_file("cmsadmin/configuration/users.ini", TRUE);
-        $this->sessionSalt = parse_ini_file("cmsadmin/configuration/salt.ini", TRUE);
-
+        $this->sessionUserData = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/cmsadmin/configuration/users.ini", TRUE);
+        $this->sessionSalt = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/cmsadmin/configuration/salt.ini", TRUE);
         $this->cookiename = "delightCMS";
-        $this->cypher = "rijndael_256";
-        $this->mode = "ecb";
     }
 
     /**
-     * check (startpoint to session-env) and set current user-session-rights 
-     *  
+     * check (startpoint to session-env) and set current user-session-rights
+     *
      * @param object Filehandle
      * @param string $cmd
      * @param string $user
@@ -44,31 +39,31 @@ final class SessionAndSecurityData {
      */
     public function setSessionEnvirement(Filehandle $filehandle, $cmd, $user, $password) {
         $intLockTimeInMinutes = 20;
-        $intLogginStatus = (file_exists("../cmsadmin/configuration/loginstatus.ini")) ? $filehandle->readFilecontent("../cmsadmin/configuration/loginstatus.ini") : -1;
-        
+        $intLogginStatus = (file_exists("../../cmsadmin/configuration/loginstatus.ini")) ? $filehandle->readFilecontent("../cmsadmin/configuration/loginstatus.ini") : -1;
+
         if ($intLogginStatus > 6 && $intLogginStatus < 100) {
-            $filehandle->writeFilecontent("../cmsadmin/configuration/loginstatus.ini", time());
+            $filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", time());
             return "sorry";
         }
 
         if (time() > ($intLogginStatus + (60 * $intLockTimeInMinutes)) && $intLogginStatus > 100) {
-            $filehandle->writeFilecontent("../cmsadmin/configuration/loginstatus.ini", 0);
+            $filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", 0);
             return "login";
         }
 
         if ($intLogginStatus > 100) {
             return "sorry";
         }
-        
+
         if ($user != "" && $password != "") {
             if ($user == $this->sessionUserData["users"]["user"] && $password == $this->sessionUserData["users"]["password"]) {
                 $this->unsetSession();
                 $this->setSession();
-                $filehandle->writeFilecontent("../cmsadmin/configuration/loginstatus.ini", 0);
+                $filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", 0);
                 return "welcome";
             } else {
                 $intLogginStatus++;
-                $filehandle->writeFilecontent("../cmsadmin/configuration/loginstatus.ini", $intLogginStatus);
+                $filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", $intLogginStatus);
                 return "error";
             }
         }
@@ -110,31 +105,36 @@ final class SessionAndSecurityData {
      * init a new session with decrypted session-values
      */
     private function setSession() {
-        $mcrypt = mcrypt_module_open($this->cypher, "", $this->mode, "");
-        $iv = @mcrypt_create_iv(mcrypt_enc_get_iv_size($mcrypt), MCRYPT_RAND);
-        @mcrypt_generic_init($mcrypt, $this->sessionSalt["env"]["key"] . session_id(), $iv);
-        $crypted = mcrypt_generic($mcrypt, $this->sessionUserData["users"]["password"]);
-        @mcrypt_generic_deinit($mcrypt);
-        @setcookie($this->cookiename, $crypted, 0);
+        $ivlen = openssl_cipher_iv_length($cipher = self::SESS_CIPHER);
+        $iv = openssl_random_pseudo_bytes($ivlen);
+        $ciphertext_raw = openssl_encrypt($this->sessionUserData["users"]["password"], $cipher, $this->_getSalt(), $options = OPENSSL_RAW_DATA, $iv);
+        $ciphertext = base64_encode($iv ./*$hmac.*/
+            $ciphertext_raw);
+
+        @setcookie($this->cookiename, rtrim($ciphertext, '\0'));
     }
 
     /**
      * check current session of current state
-     * 
+     *
      * @return \stdClass
      */
     private function hasSession() {
-        $mcrypt = mcrypt_module_open($this->cypher, "", $this->mode, "");
-        $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($mcrypt), MCRYPT_RAND);
-        @mcrypt_generic_init($mcrypt, $this->sessionSalt["env"]["key"] . session_id(), $iv);
-        $decrypted = (string) @mdecrypt_generic($mcrypt, $_COOKIE[$this->cookiename]);
-        @mcrypt_generic_deinit($mcrypt);
+        $c = base64_decode($_COOKIE[$this->cookiename]);
+        $ivlen = openssl_cipher_iv_length($cipher = "AES-128-CBC");
+        $iv = substr($c, 0, $ivlen);
+        $ciphertext_raw = substr($c, $ivlen/*+$sha2len*/);
+        $decryptedSession = openssl_decrypt($ciphertext_raw, $cipher, $this->_getSalt(), $options = OPENSSL_RAW_DATA, $iv);
 
-        if (strcmp($decrypted, $this->sessionUserData["users"]["password"]) == true && $decrypted != "") {
+        if ($this->sessionUserData["users"]["password"] === $decryptedSession && $decryptedSession != "") {
             return true;
         } else {
             return false;
         }
+    }
+
+    private function _getSalt() {
+        return $this->sessionSalt["env"]["key"];
     }
 
 }

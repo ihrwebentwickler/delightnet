@@ -1,0 +1,44 @@
+{
+    "extensions": {
+        "contact": {
+            "menuname": "Kontakt-Form",
+            "isActive": true,
+            "isFrontendExt": false,
+            "Marker": [
+                "CONTACT1"
+            ]
+        },
+        "blogger": {
+            "menuname": "Blogger",
+            "isActive": true,
+            "isFrontendExt": true,
+            "Marker": [
+                "BLOGGER1"
+            ]
+        },
+        "epubbi": {
+            "menuname": "Epubbi",
+            "isActive": true,
+            "isFrontendExt": false,
+            "Marker": [
+                "EPUBBI1"
+            ]
+        },
+        "galleria": {
+            "menuname": "Galleria",
+            "isActive": true,
+            "isFrontendExt": true,
+            "Marker": [
+                "GALLERIA1"
+            ]
+        },
+        "mediadirectplayer": {
+            "menuname": "Media-Direct-Player",
+            "isActive": true,
+            "isFrontendExt": true,
+            "Marker": [
+                "MEDIADIRECTPLAYER1"
+            ]
+        }
+    }
+}

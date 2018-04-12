@@ -1,0 +1,11 @@
+{
+  "menuentry": {
+    "home": "Home",
+    "beispielseite": "Example",
+    "kontakt": "Contact",
+    "galleria": "Galleria",
+    "mediadirectplayer": "Media-Direct-Player",
+    "blogger": "Blog",
+    "ebook": "Ebook"
+  }
+}

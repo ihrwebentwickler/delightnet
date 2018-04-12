@@ -1,0 +1,70 @@
+{"contact": {
+    "main": {
+        "1": {
+            "emailTo": "mailgvs@gmx.net",
+            "subject": "Neue Email über ihrwebentwickler.de",
+            "ConfirmationSiteFileName": "thanks",
+            "messagetext": "Neue Email über {SERVERADDRESS}
+                            ---------------------------------------------------------------------------
+                            Email vom {TIMESTAMP} Uhr
+                            IP-Adresse des Absenders: {IP-ADDRESS}
+                            Host: {SERVERADDRESS}
+                            Versendet über die Seite: {HOSTNAME}
+                            ---------------------------------------------------------------------------
+
+                            Email von: {1}
+                            Email-Adresse: {2}
+                            Telefon: {3}
+
+                            ____________________________________________________________________
+                            Der Emailtext:
+                            {4}
+                            ____________________________________________________________________"
+        }
+    },
+    "formParameters": {
+        "1": {
+            "1": {
+                "obligation": "1",
+                "error": "Error: Name"
+            },
+            "2": {
+                "obligation": "1",
+                "error": "Error: Email"
+            },
+            "3": {
+                "obligation": "0",
+                "error": "Error: Telefon"
+            },
+            "4": {
+                "obligation": "1",
+                "error": "Error: Text"
+            }
+        }
+    },
+    "message": {
+        "1": {
+            "spamKeyError": "Fehler: Bitte geben Sie einen richtigen Spam-Code ein."
+        }
+    },
+    "captcha": {
+        "1": {
+            "font": "232MKRB_.TTF",
+            "fontSize": "17",
+            "fontColor": "f49600",
+            "backgroundColor": "ffffff",
+            "number": "4"
+        }
+    },
+    "googlemap": {
+        "1": {
+            "welcometext": "Ihr Webentwickler",
+            "actiontext": "Ihr Webentwickler<br>Gunnar von Spreckelsen<br>eMail: service[ at ]ihrwebentwickler.de<br>Telefon: 01525 3479709",
+            "latitude": "53.752421",
+            "longitude": "9.656725",
+            "width": "100%",
+            "height": "340px",
+            "zoom": 7
+        }
+    }
+}}

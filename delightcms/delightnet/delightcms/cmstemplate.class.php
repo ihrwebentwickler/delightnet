@@ -35,7 +35,7 @@ abstract class CmsTemplate implements CmsTemplateView {
 
     public function __construct(Request $request, Response $response) {
         $this->Filehandle = new \delightnet\delightos\Filehandle();
-        $this->Mandn = new \delightnet\delightos\MandN();
+        $this->Mandn = new \delightnet\delightos\MandN($this->Filehandle, $request);
         $this->Security = new \delightnet\delightos\Security();
         $this->SessionAndSecurityData = new \delightnet\delightcms\SessionAndSecurityData();
         $this->Gui = new \delightnet\delightcms\Gui($this->Filehandle, $this->Mandn, $this->Security);
@@ -203,7 +203,6 @@ abstract class CmsTemplate implements CmsTemplateView {
             $strTextSave = "";
         }
 
-        $strSavebuttonPagehelper = $this->Filehandle->readFilecontent();
         $strSavebuttonPagehelper = (file_exists("../cmsadmin/template/parts/savebutton.tpl")) ? $this->Filehandle->readFilecontent("../cmsadmin/template/parts/savebutton.tpl") : "";
 
         $this->template = $this->Mandn->setBlock($this->template, "SAVEBUTTON_PAGEHELPER", $strSavebuttonPagehelper);
