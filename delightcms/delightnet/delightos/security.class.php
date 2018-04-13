@@ -1,6 +1,6 @@
 <?php
 /*
- * security methods, for example strip tags of strings
+ * security-methods
  * 
  * @author    Gunnar von Spreckelsen <service@ihrwebentwickler.de>
  * @package   delightos
@@ -9,52 +9,48 @@
 namespace delightnet\delightos;
 
 class Security {
-    public $whitelist;
-    public $cypher;
-    public $mode;
+    const SESS_CIPHER = 'aes-128-cbc';
+
     public $salt;
+    public $whitelist;
 
     public $Filehandle;
 
     public function __construct() {
-        $this->Filehandle = new Filehandle();
+        $this->salt = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/cmsadmin/configuration/salt.ini", true);
         $this->whitelist = "a-zA-Z0-9äöüÄÖÜ§\+\-\!\*\#@ß";
-        $this->cypher = "rijndael_256";
-        $this->mode = "ecb";
 
-        $arrSalt = (file_exists("public/configuration/salt.json")) ? json_decode($this->Filehandle->readFilecontent("public/configuration/salt.json"), true) : null;
-        $this->salt = $arrSalt[0];
+        $this->Filehandle = new Filehandle();
     }
 
     /**
-     * decode string (mode by $this->mode)
+     * decode string
      *
      * @param string $strToDecode
      * @return string $crypted
      */
     public function decodeString($strToDecode) {
-        $mcrypt = mcrypt_module_open($this->cypher, "", $this->mode, "");
-        $iv = @mcrypt_create_iv(mcrypt_enc_get_iv_size($mcrypt), MCRYPT_RAND);
-        @mcrypt_generic_init($mcrypt, $this->salt . session_id(), $iv);
-        $crypted = (string)mcrypt_generic($mcrypt, $strToDecode);
-        @mcrypt_generic_deinit($mcrypt);
+        $c = base64_decode($strToDecode);
+        $ivlen = openssl_cipher_iv_length($cipher = self::SESS_CIPHER);
+        $iv = substr($c, 0, $ivlen);
+        $ciphertext_raw = substr($c, $ivlen/*+$sha2len*/);
+        $crypted = openssl_decrypt($ciphertext_raw, $cipher, $this->salt["env"]["key"], $options = OPENSSL_RAW_DATA, $iv);
 
         return $crypted;
     }
 
     /**
-     * encode string (mode by $this->mode)
+     * encode string
      *
      * @param string $strEncoded
      * @return string $decrypted
      */
     public function encodeString($strEncoded) {
-        $mcrypt = mcrypt_module_open($this->cypher, "", $this->mode, "");
-        $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($mcrypt), MCRYPT_RAND);
-        @mcrypt_generic_init($mcrypt, $this->salt . session_id(), $iv);
-        $decrypted = (string)@mdecrypt_generic($mcrypt, $strEncoded);
-        @mcrypt_generic_deinit($mcrypt);
-
+        $ivlen = openssl_cipher_iv_length($cipher = self::SESS_CIPHER);
+        $iv = openssl_random_pseudo_bytes($ivlen);
+        $ciphertext_raw = openssl_encrypt($strEncoded, $cipher, $this->salt["env"]["key"], $options = OPENSSL_RAW_DATA, $iv);
+        $decrypted = base64_encode($iv ./*$hmac.*/
+            $ciphertext_raw);
         return $decrypted;
     }
 
@@ -72,11 +68,12 @@ class Security {
 
             foreach ($strOrArray as $key => $value) {
                 if (is_array($value)) {
-                    $newArray[$key] = $this->undoMagicQuotes($value, false);
+                    $newArray[$key] = $this->undoMagicQuotes($value);
                 } else {
                     $newArray[$key] = stripslashes($value);
                 }
             }
+
             return $newArray;
         }
     }
@@ -95,7 +92,7 @@ class Security {
 
             foreach ($strOrArray as $key => $value) {
                 if (is_array($value)) {
-                    $newArray[$key] = $this->undoTags($value, false);
+                    $newArray[$key] = $this->undoTags($value);
                 } else {
                     $newArray[$key] = strip_tags($value);
                 }

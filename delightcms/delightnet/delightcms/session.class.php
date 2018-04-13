@@ -12,10 +12,14 @@
 namespace delightnet\delightcms;
 
 use delightnet\delightos\Filehandle;
+use delightnet\delightos\Security;
 
-final class SessionAndSecurityData {
+final class Session {
+    private $sessionUserData;
     private $cookiename;
-    const SESS_CIPHER = 'aes-128-cbc';
+
+    private $Filehandle;
+    private $Security;
 
     public function __construct() {
         ini_set('session.use_cookies', 1);
@@ -23,31 +27,32 @@ final class SessionAndSecurityData {
         ini_set('session.use_trans_sid', 0);
         ini_set('session.cookie_lifetime', 0);
 
-        $this->sessionUserData = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/cmsadmin/configuration/users.ini", TRUE);
-        $this->sessionSalt = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/cmsadmin/configuration/salt.ini", TRUE);
+        $this->sessionUserData = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/cmsadmin/configuration/users.ini", true);
         $this->cookiename = "delightCMS";
+
+        $this->Filehandle = new Filehandle();
+        $this->Security = new Security();
     }
 
     /**
      * check (startpoint to session-env) and set current user-session-rights
      *
-     * @param object Filehandle
      * @param string $cmd
      * @param string $user
      * @param string $password
      * @return \stdClass
      */
-    public function setSessionEnvirement(Filehandle $filehandle, $cmd, $user, $password) {
+    public function setSessionEnvirement($cmd, $user, $password) {
         $intLockTimeInMinutes = 20;
-        $intLogginStatus = (file_exists("../../cmsadmin/configuration/loginstatus.ini")) ? $filehandle->readFilecontent("../cmsadmin/configuration/loginstatus.ini") : -1;
+        $intLogginStatus = (file_exists("../../cmsadmin/configuration/loginstatus.ini")) ? $this->Filehandle->readFilecontent("../cmsadmin/configuration/loginstatus.ini") : -1;
 
         if ($intLogginStatus > 6 && $intLogginStatus < 100) {
-            $filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", time());
+            $this->Filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", time());
             return "sorry";
         }
 
         if (time() > ($intLogginStatus + (60 * $intLockTimeInMinutes)) && $intLogginStatus > 100) {
-            $filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", 0);
+            $this->Filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", 0);
             return "login";
         }
 
@@ -59,11 +64,11 @@ final class SessionAndSecurityData {
             if ($user == $this->sessionUserData["users"]["user"] && $password == $this->sessionUserData["users"]["password"]) {
                 $this->unsetSession();
                 $this->setSession();
-                $filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", 0);
+                $this->Filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", 0);
                 return "welcome";
             } else {
                 $intLogginStatus++;
-                $filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", $intLogginStatus);
+                $this->Filehandle->writeFilecontent("../../cmsadmin/configuration/loginstatus.ini", $intLogginStatus);
                 return "error";
             }
         }
@@ -93,25 +98,15 @@ final class SessionAndSecurityData {
         header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         @session_destroy();
-
-        // Löschen aller Session-Variablen.
         setcookie($this->cookiename, '', 0);
-
-        unset($GLOBALS['user']);
-        unset($GLOBALS['password']);
     }
 
     /**
      * init a new session with decrypted session-values
      */
     private function setSession() {
-        $ivlen = openssl_cipher_iv_length($cipher = self::SESS_CIPHER);
-        $iv = openssl_random_pseudo_bytes($ivlen);
-        $ciphertext_raw = openssl_encrypt($this->sessionUserData["users"]["password"], $cipher, $this->_getSalt(), $options = OPENSSL_RAW_DATA, $iv);
-        $ciphertext = base64_encode($iv ./*$hmac.*/
-            $ciphertext_raw);
-
-        @setcookie($this->cookiename, rtrim($ciphertext, '\0'));
+        $ciphertext = $this->Security->encodeString($this->sessionUserData["users"]["password"]);
+        @setcookie($this->cookiename, $ciphertext);
     }
 
     /**
@@ -120,11 +115,7 @@ final class SessionAndSecurityData {
      * @return \stdClass
      */
     private function hasSession() {
-        $c = base64_decode($_COOKIE[$this->cookiename]);
-        $ivlen = openssl_cipher_iv_length($cipher = "AES-128-CBC");
-        $iv = substr($c, 0, $ivlen);
-        $ciphertext_raw = substr($c, $ivlen/*+$sha2len*/);
-        $decryptedSession = openssl_decrypt($ciphertext_raw, $cipher, $this->_getSalt(), $options = OPENSSL_RAW_DATA, $iv);
+        $decryptedSession = $this->Security->decodeString($_COOKIE[$this->cookiename]);
 
         if ($this->sessionUserData["users"]["password"] === $decryptedSession && $decryptedSession != "") {
             return true;
@@ -132,9 +123,4 @@ final class SessionAndSecurityData {
             return false;
         }
     }
-
-    private function _getSalt() {
-        return $this->sessionSalt["env"]["key"];
-    }
-
 }

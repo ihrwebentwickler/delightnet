@@ -20,7 +20,7 @@ abstract class CmsTemplate implements CmsTemplateView {
     public $Filehandle;
     public $Mandn;
     public $Security;
-    public $SessionAndSecurityData;
+    public $Session;
     public $Gui;
     public $template;
     public $arrayDynamicFiles;
@@ -37,7 +37,7 @@ abstract class CmsTemplate implements CmsTemplateView {
         $this->Filehandle = new \delightnet\delightos\Filehandle();
         $this->Mandn = new \delightnet\delightos\MandN($this->Filehandle, $request);
         $this->Security = new \delightnet\delightos\Security();
-        $this->SessionAndSecurityData = new \delightnet\delightcms\SessionAndSecurityData();
+        $this->Session = new \delightnet\delightcms\Session();
         $this->Gui = new \delightnet\delightcms\Gui($this->Filehandle, $this->Mandn, $this->Security);
 
         $this->template = (file_exists("../cmsadmin/template/template.tpl")) ? $this->Filehandle->readFilecontent("../cmsadmin/template/template.tpl") : "";
@@ -105,7 +105,7 @@ abstract class CmsTemplate implements CmsTemplateView {
      * @return \stdClass
      */
     public function getandSetSessionAndCmdEnvirement($cmd, $user, $password) {
-        $cmd = $this->SessionAndSecurityData->setSessionEnvirement($this->Filehandle, $cmd, $this->Security->undoTags($user), $this->Security->undoTags($password));
+        $cmd = $this->Session->setSessionEnvirement($cmd, $this->Security->undoTags($user), $this->Security->undoTags($password));
         $isWhite = $this->Security->checkOfWhitelist($user);
         $isWhite = ($isWhite === false) ? $isWhite : $this->Security->checkOfWhitelist($password);
 
