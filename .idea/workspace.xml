@@ -4,7 +4,10 @@
     <bookmark url="file://$PROJECT_DIR$/delightcms/delightnet/delightcms/sessionandsecuritydata.class.php" line="23" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e26390d1-d27a-4e39-bf45-af5331518862" name="Default" comment="uncomplete first version of cms-admin, some functions in os-dev">
+    <list default="true" id="e26390d1-d27a-4e39-bf45-af5331518862" name="Default" comment="ignored idea-directory">
+      <change beforePath="$PROJECT_DIR$/.idea/delightnet.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,11 +40,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cmstemplate.class.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cmstemplate.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/delightcms/delightnet/delightcms/cmstemplate.class.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
               <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -186,6 +198,7 @@
         <option value="$PROJECT_DIR$/delightcms/delightnet/delightcms/cmstemplate.class.php" />
         <option value="$PROJECT_DIR$/delightcms/delightnet/delightos/mandn.class.php" />
         <option value="$PROJECT_DIR$/delightcms/delightnet/delightcms/sessionandsecuritydata.class.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -306,15 +319,28 @@
       <option name="project" value="LOCAL" />
       <updated>1523577249013</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="ignored idea-directory">
+      <created>1523578525149</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1523578525149</updated>
+    </task>
+    <task id="LOCAL-00004" summary="ignore-list standard">
+      <created>1523578956968</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1523578956968</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71061000" />
+    <option name="totallyTimeSpent" value="71695000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.171875" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -362,16 +388,11 @@
     <MESSAGE value="first uncomplete commit with generel env current html5-boilerplate and php-files" />
     <MESSAGE value="uncomplete some new parts of os-env and generel php-code" />
     <MESSAGE value="uncomplete first version of cms-admin, some functions in os-dev" />
-    <option name="LAST_COMMIT_MESSAGE" value="uncomplete first version of cms-admin, some functions in os-dev" />
+    <MESSAGE value="ignored idea-directory" />
+    <MESSAGE value="ignore-list standard" />
+    <option name="LAST_COMMIT_MESSAGE" value="ignore-list standard" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/delightcms/delightnet/delightos/template.class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3740">
-          <caret line="225" column="20" selection-start-line="225" selection-start-column="20" selection-end-line="225" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/delightcms/delightnet/delightos/filehandle.class.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -611,6 +632,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
