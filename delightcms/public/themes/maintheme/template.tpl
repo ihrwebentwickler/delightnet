@@ -60,7 +60,7 @@ Enjoy for unlimited creativity!
         <section id="navigation">
             <nav id="mainNavigation" data-role="navbar">
                 <ul>
-                    {LOOP MENU1}
+                    {LOOP MENU0}
                         <li><a href="/{FILENAME}.html" title="{SITE}" {ACTIV} data-role="button">{SITE}</a></li>
                     {/LOOP}
                 </ul>
@@ -70,7 +70,7 @@ Enjoy for unlimited creativity!
                         onchange="javascript:self.location.href = this.options[this.selectedIndex].title + '.html'"
                         class="ui-selectmenu-list ui-listview">
                     <option title="pluginwahl">Auswahl Plugin:</option>
-                    {LOOP MENU2}
+                    {LOOP MENU1}
                         <option title="{FILENAME}" {ACTIV}>{SITE}</option>
                     {/LOOP}
                 </select>

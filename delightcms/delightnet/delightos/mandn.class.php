@@ -10,7 +10,8 @@
 
 namespace delightnet\delightos;
 
-class MandN {
+class MandN
+{
     public $strCssLink;
     public $strJsLink;
     public $arrayIntegrationFileExtensions;
@@ -55,34 +56,38 @@ class MandN {
      * replace loop-content of a string, replace in main-string and return main-string
      *
      * @param string $strContentInput
-     * @param string $strLoopIdentifier
      * @param array $arrayLoopInput
      * @param string $style
      * @param string $cmd
-     * @return string $strContent
      */
     public function replaceLoopContent($strContentInput, $arrayLoopInput, $style, $cmd) {
         $strContentPart = "";
         foreach ($arrayLoopInput as $key => $data) {
             $strRegex = '#{' . 'LOOP ' . strtoupper($data->configuration->identifier) . '}.*.{/LOOP}#isU';
             $strContent = preg_replace($strRegex, '{' . strtoupper($data->configuration->identifier) . '}', $strContentInput);
-
-            echo $strContent;
-
             preg_match_all($strRegex, $strContentInput, $arrayContentLoop);
+
             $strContentLoop = explode('{LOOP ' . strtoupper($data->configuration->identifier) . '}', $arrayContentLoop[0][0])[1];
             $strContentLoop = trim(explode('{/LOOP}', $strContentLoop)[0]);
 
+            if (isset($data->data->replaceNames)) {
+                foreach ($data->data->replaceNames as $value) {
+                    $this->setBlock($strContentLoop, strtoupper($value), $data->data->{$value});
+                }
+            }
 
             $strContentPart .= $strContentLoop;
-//            $this->setBlock($strContentPart, strtoupper($key), $value);
-//
-//            if ($style && $cmd && $key === $cmd) {
-//                $this->setBlock($strContentPart, "ACTIV", $value);
-//            }
+
+            if (strstr($strContentInput, 'ACTIV', false) && $style !== "") {
+                if ($cmd === $data->data->filename) {
+                    $this->setBlock($strContentPart, "ACTIV", $style);
+                } else {
+                    $this->setBlock($strContentPart, "ACTIV", "");
+                }
+            }
         }
 
-        // $strContent = $this->setBlock($strContent, strtoupper($strLoopIdentifier), $strContentPart);
+        $strContent = $this->setBlock($strContent, strtoupper($data->configuration->identifier), $strContentPart);
         return $strContent;
     }
 

@@ -269,12 +269,15 @@ abstract class Template
      * replace html-data of menus in template
      */
     public function replaceMenu() {
-        if (isset($this->arrMainConfiguration['main']["defaults"]["menustyle"]) &&
-            file_exists($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"])
-            && !empty($this->arrMainConfiguration['main']["menu"])
-        ) {
+        if (!empty($this->arrMainConfiguration['main']["menu"])) {
             $arrayLoop = array();
-            $strMenuStyle = $this->Filehandle->readFilecontent($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"]);
+
+            if (isset($this->arrMainConfiguration['main']["defaults"]["menustyle"]) &&
+                file_exists($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"])) {
+                $strMenuStyle = $this->Filehandle->readFilecontent($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"]);
+            } else {
+                $strMenuStyle = "";
+            }
 
             foreach ($this->arrMainConfiguration['main']["menu"] as $key => $menu) {
                 foreach ($menu as $value) {
@@ -283,8 +286,13 @@ abstract class Template
                     $object->configuration = new \stdClass();
                     $object->configuration->identifier = "MENU" . $key;
 
-                    $object->FILENAME = $value;
-                    $object->SITE = $this->objMenuEntry->menuentry->{$value};
+                    $object->data = new \stdClass();
+                    $object->data->filename = $value;
+                    $object->data->site = $this->objMenuEntry->menuentry->{$value};
+                    $object->data->replaceNames = [];
+                    $object->data->replaceNames[] = "filename";
+                    $object->data->replaceNames[] = "site";
+
                     $arrayLoop[] = $object;
                 }
             }
@@ -293,7 +301,7 @@ abstract class Template
 
             // mobile responsive menü, dynamic integration of various device-menus
             if (strstr($this->template, "MENU" . $key . "-DEVICE") == true) {
-                // $this->template = $this->MandN->replaceLoopContent($this->template, "MENU" . $key . "-DEVICE", $arrayLoop, $strMenuStyle, $this->cmd);
+                $this->template = $this->MandN->replaceLoopContent($this->template, "MENU" . $key . "-DEVICE", $arrayLoop, $strMenuStyle, $this->cmd);
             }
         }
     }
