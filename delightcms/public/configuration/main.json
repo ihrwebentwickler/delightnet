@@ -6,20 +6,20 @@
       "menustyle": "parts/menustyle.tpl",
       "alpha2": "de"
     },
-    "menu": {
-      "1": [
+    "menu": [
+      [
         "home",
         "beispielseite",
         "kontakt"
       ],
-      "2": [
+      [
         "kontakt",
         "galleria",
         "mediadirectplayer",
         "blogger",
         "ebook"
       ]
-    },
+    ],
     "multidesign": {
       "activ": false,
       "modus": {

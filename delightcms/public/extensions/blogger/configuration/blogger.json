@@ -1,23 +1,42 @@
-{"blogger": {
-    "blogMain": {
-        "1": {
-            "blogtitle": "News und rund um die Internet-Entwicklung (deutsch)"
+{
+  "blogger": {
+    "DE": {
+      "blogTitle": [
+        "Titel des Blogs1"
+      ],
+      "blogEntries": [
+        {
+          "header": "Überschrift 1",
+          "text": "Textbeispiel Blogtext 1. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy"
+        },
+        {
+          "header": "Überschrift 2",
+          "text": "Textbeispiel Blogtext 2. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy"
+        },
+        {
+          "header": "Überschrift 3",
+          "text": "Textbeispiel Blogtext 3. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy"
         }
+      ]
     },
-    "blogEntries": {
-        "1": {
-            "1": {
-                "header": "Einarbeitung in Polymer (13.02.2018)",
-                "text": "Das ich diese geniale kleine Libary bisher übersehen hatte, wundert mich, es ist gerade für normale Webseiten sinnvoll, mit Hilfe von Polymer wiederverwendbare HTML-Elemente zu produzieren, auf diese Weise kann komfortabel neues an Funktionalität hinzugefügt werden (<a href='https://www.polymer-project.org/'>Polymer Webseite</a>)."
-            },
-            "2": {
-                "header": "Barcamp http://www.barcamp-hamburg.de (09.03.2015)",
-                "text": "In einem Barcamp treffen sich Interessierte zum Fachaustausch, die Veranstaltung verfolgt gemeinützige Interessen. Wenn ich das zeitlich hinbekomme, werde ich dort teilnehmen, die Idee gefällt mir auf jeden Fall schon einmal gut."
-            },
-            "3": {
-                "header": "Neues Design/ Webseite online (07.03.2015)",
-                "text": "Bei der Produktion der neuen Webseite stand das responsive Design im Vordergrund. Als Technologie dient die neue eigenentwickelte Version von <a href='https://github.com/ihrwebentwickler'>delightcms</a>."
-            }
+    "UK": {
+      "blogTitle": [
+        "Title of blog1"
+      ],
+      "blogEntries": [
+        {
+          "header": "Header 1",
+          "text": "Text example Blogtext 1. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy"
+        },
+        {
+          "header": "Header 2",
+          "text": "Text example Blogtext 2. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy"
+        },
+        {
+          "header": "Header 3",
+          "text": "Text example Blogtext 3. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy"
         }
+      ]
     }
-}}
+  }
+}

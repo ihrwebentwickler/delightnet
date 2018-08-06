@@ -10,7 +10,8 @@
 
 namespace delightnet\delightos;
 
-class FrontendTemplate extends Template implements TemplateView {
+class FrontendTemplate extends Template implements TemplateView
+{
     public $arrExtensions;
 
     public $strGooglesiteverification;
@@ -34,10 +35,7 @@ class FrontendTemplate extends Template implements TemplateView {
 
                     $strNamespace = 'delightnet\\extensions\\' . strtolower($strClassCamelCase) . '\\';
 
-                    if (
-                        file_exists("public/extensions/" . strtolower($strClassCamelCase) . "/configuration/" . strtolower($strClassCamelCase) . ".json")
-                        && $this->arrExtensions['extensions'][$strExtName]["isFrontendExt"] === false
-                    ) {
+                    if (file_exists("public/extensions/" . strtolower($strClassCamelCase) . "/configuration/" . strtolower($strClassCamelCase) . ".json")) {
                         $jsonConfiguration = $this->Filehandle->readFilecontent("public/extensions/" . strtolower($strClassCamelCase) . "/configuration/" . strtolower($strClassCamelCase) . ".json");
                         $jsonConfiguration = $this->MandN->deleteControlCharactersAndWhitespaceFromString($jsonConfiguration);
                         $objConfiguration = json_decode($jsonConfiguration);
@@ -81,7 +79,7 @@ class FrontendTemplate extends Template implements TemplateView {
                             if (!$strObj instanceof $strClassPath) {
                                 $objExt = new $strClassPath();
                                 $objExt->setController($strClassPath . strtolower($strClassCamelCase), $keyMarker + 1, $strExtTemplate, $objConfiguration, $this->arrLangs,
-                                    $this->strAlpha2 , $this->objRequest, $this->Filehandle, $this->MandN, $this->Security, $this->Session);
+                                    $this->strAlpha2, $this->objRequest, $this->Filehandle, $this->MandN, $this->Security, $this->Session);
                             }
                             $this->template = $this->MandN->setBlock($this->template, $strSearchInput, $objExt->action());
                         } else {

@@ -61,7 +61,7 @@ Enjoy for unlimited creativity!
             <nav id="mainNavigation" data-role="navbar">
                 <ul>
                     {LOOP MENU1}
-                        <li><a href="/{FILENAME}.html" title="{SITE}" {MENU_ACTIV} data-role="button">{SITE}</a></li>
+                        <li><a href="/{FILENAME}.html" title="{SITE}" {ACTIV} data-role="button">{SITE}</a></li>
                     {/LOOP}
                 </ul>
             </nav>
@@ -71,7 +71,7 @@ Enjoy for unlimited creativity!
                         class="ui-selectmenu-list ui-listview">
                     <option title="pluginwahl">Auswahl Plugin:</option>
                     {LOOP MENU2}
-                        <option title="{FILENAME}" {MENU_ACTIV}>{SITE}</option>
+                        <option title="{FILENAME}" {ACTIV}>{SITE}</option>
                     {/LOOP}
                 </select>
             </div>

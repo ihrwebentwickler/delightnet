@@ -12,7 +12,8 @@ namespace delightnet\delightos;
 
 use \ZipArchive;
 
-class Filehandle {
+class Filehandle
+{
 
     /**
      * read and get content of file
@@ -115,12 +116,12 @@ class Filehandle {
         }
 
         if (!extension_loaded('zip')) {
-            return false;
+            return null;
         }
 
         $zip = new \ZipArchive();
         if (!$zip->open('tmp/' . $archivFileName, ZIPARCHIVE::CREATE)) {
-            return false;
+            return null;
         }
 
         foreach ($arraySources as $key => $source) {
@@ -165,12 +166,14 @@ class Filehandle {
 
         $zip = $this->createZipArchiv($archivFileName, $arraySources);
 
-        header('Content-Type: application/zip');
-        header('Content-Disposition: attachment; filename="' . $archivFileName.'"');
-        header('Content-Length: ' . filesize('tmp/' . $archivFileName) );
-        readfile('tmp/' . $archivFileName);
-        @unlink('tmp/' . $archivFileName);
-        unset($zip);
+        if ($zip !== null) {
+            header('Content-Type: application/zip');
+            header('Content-Disposition: attachment; filename="' . $archivFileName . '"');
+            header('Content-Length: ' . filesize('tmp/' . $archivFileName));
+            readfile('tmp/' . $archivFileName);
+            @unlink('tmp/' . $archivFileName);
+            unset($zip);
+        }
     }
 
     /**

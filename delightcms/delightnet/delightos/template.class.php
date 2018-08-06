@@ -9,7 +9,8 @@
 
 namespace delightnet\delightos;
 
-abstract class Template {
+abstract class Template
+{
     protected $objRequest;
     protected $objResponse;
     public $strDirEnv;
@@ -272,37 +273,27 @@ abstract class Template {
             file_exists($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"])
             && !empty($this->arrMainConfiguration['main']["menu"])
         ) {
+            $arrayLoop = array();
             $strMenuStyle = $this->Filehandle->readFilecontent($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"]);
 
-            $arrayLoopInput = array();
-            // device responsive Menü
-            if (strstr($this->template, "-DEVICE}") == true) {
-                $arrayLoopInputDevice = array();
-            }
+            foreach ($this->arrMainConfiguration['main']["menu"] as $key => $menu) {
+                foreach ($menu as $value) {
+                    $object = new \stdClass();
 
-            if ($this->objMenuEntry != null) {
-                foreach ($this->arrMainConfiguration['main']["menu"] as $menuKey => $arrMenu) {
-                    foreach ($arrMenu as $key => $filename) {
-                        $arrayLoopInput[$menuKey][$key]['FILENAME'] = $filename;
-                        $arrayLoopInput[$menuKey][$key]['SITE'] = $this->objMenuEntry->menuentry->{$filename};
+                    $object->configuration = new \stdClass();
+                    $object->configuration->identifier = "MENU" . $key;
 
-                        // mobile responsive menü, dynamic integration of various device-menus
-                        if (strstr($this->template, "MENU" . $menuKey . "-DEVICE") == true) {
-                            $arrayLoopInputDevice[$menuKey][$key]['FILENAME'] = $filename;
-                            $arrayLoopInputDevice[$menuKey][$key]['SITE'] = $this->objMenuEntry->menuentry->{$filename};
-                        }
-                    }
+                    $object->FILENAME = $value;
+                    $object->SITE = $this->objMenuEntry->menuentry->{$value};
+                    $arrayLoop[] = $object;
                 }
             }
 
-            foreach ($arrayLoopInput as $menuKey => $arrayMenu) {
-                $this->template = $this->MandN->replaceLoopContent($this->template, 'MENU' . $menuKey, $arrayMenu, "MENU_ACTIV", $strMenuStyle, $this->cmd, "FILENAME");
-            }
+            $this->template = $this->MandN->replaceLoopContent($this->template, $arrayLoop, $strMenuStyle, $this->cmd);
 
-            if (!empty ($arrayLoopInputDevice)) {
-                foreach ($arrayLoopInputDevice as $menuKey => $arrayMenuDevice) {
-                    $this->template = $this->MandN->replaceLoopContent($this->template, "MENU" . $menuKey . "-DEVICE", $arrayMenuDevice, "", "", $this->cmd, "FILENAME");
-                }
+            // mobile responsive menü, dynamic integration of various device-menus
+            if (strstr($this->template, "MENU" . $key . "-DEVICE") == true) {
+                // $this->template = $this->MandN->replaceLoopContent($this->template, "MENU" . $key . "-DEVICE", $arrayLoop, $strMenuStyle, $this->cmd);
             }
         }
     }

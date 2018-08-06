@@ -57,32 +57,32 @@ class MandN {
      * @param string $strContentInput
      * @param string $strLoopIdentifier
      * @param array $arrayLoopInput
-     * @param string $strActionSearchValue
-     * @param string $strAction
+     * @param string $style
+     * @param string $cmd
      * @return string $strContent
      */
-    public function replaceLoopContent($strContentInput, $strLoopIdentifier, $arrayLoopInput, $strActionSearchValue = "", $strAction = "", $cmd, $strSearchKey) {
-        $strRegex = '#{' . 'LOOP ' . strtoupper($strLoopIdentifier) . '}.*.{/LOOP}#isU';
-        $strContent = preg_replace($strRegex, '{' . strtoupper($strLoopIdentifier) . '}', $strContentInput);
-
-        preg_match_all($strRegex, $strContentInput, $arrayContentLoop);
-        $strContentLoop = explode('{LOOP ' . strtoupper($strLoopIdentifier) . '}', $arrayContentLoop[0][0])[1];
-        $strContentLoop = trim(explode('{/LOOP}', $strContentLoop)[0]);
-
+    public function replaceLoopContent($strContentInput, $arrayLoopInput, $style, $cmd) {
         $strContentPart = "";
-        foreach ($arrayLoopInput as $keyEntry => $arrayEntry) {
+        foreach ($arrayLoopInput as $key => $data) {
+            $strRegex = '#{' . 'LOOP ' . strtoupper($data->configuration->identifier) . '}.*.{/LOOP}#isU';
+            $strContent = preg_replace($strRegex, '{' . strtoupper($data->configuration->identifier) . '}', $strContentInput);
+
+            echo $strContent;
+
+            preg_match_all($strRegex, $strContentInput, $arrayContentLoop);
+            $strContentLoop = explode('{LOOP ' . strtoupper($data->configuration->identifier) . '}', $arrayContentLoop[0][0])[1];
+            $strContentLoop = trim(explode('{/LOOP}', $strContentLoop)[0]);
+
+
             $strContentPart .= $strContentLoop;
-            foreach ($arrayLoopInput[$keyEntry] as $keyBlock => $arrayBlock) {
-                $strContentPart = $this->setBlock($strContentPart, $keyBlock, $arrayLoopInput[$keyEntry][$keyBlock]);
-                if ($strActionSearchValue !== "" && $strAction !== "") {
-                    $strContentPart = ($arrayLoopInput[$keyEntry][strtoupper($strSearchKey)] === $cmd) ?
-                        $this->setBlock($strContentPart, $strActionSearchValue, $strAction) :
-                        $this->setBlock($strContentPart, $strActionSearchValue, '');
-                }
-            }
+//            $this->setBlock($strContentPart, strtoupper($key), $value);
+//
+//            if ($style && $cmd && $key === $cmd) {
+//                $this->setBlock($strContentPart, "ACTIV", $value);
+//            }
         }
 
-        $strContent = $this->setBlock($strContent, strtoupper($strLoopIdentifier), $strContentPart);
+        // $strContent = $this->setBlock($strContent, strtoupper($strLoopIdentifier), $strContentPart);
         return $strContent;
     }
 

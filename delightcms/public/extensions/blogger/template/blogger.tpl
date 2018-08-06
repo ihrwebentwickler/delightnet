@@ -1,16 +1,19 @@
-<div data-ng-controller="bloggerController" ng-init="init('{INSTANCEID}')">
-    <h3 class="title">{{blogtitle}}</h3>
-    <div class="standardbox" data-ng-repeat="blogEntry in blogData">
-        <div>
+<div>
+    <h3 class="title">{{BLOGTITLE}}</h3>
+    {LOOP blogger1}
+        <div class="standardbox">
+            <div>
+                <span>
+                    {{BLOGHEADER}}
+                </span>
+            </div>
+            <div class="line">
+            </div>
+            <div>
             <span>
-                {{blogEntry.header}}
+                {{BLOGTEXT}}
             </span>
+            </div>
         </div>
-        <div class="line">
-        </div>
-        <div>
-            <span ng-bind-html="renderHtml(blogEntry.text)">
-            </span>
-        </div>
-    </div>
+    {/LOOP}
 </div>

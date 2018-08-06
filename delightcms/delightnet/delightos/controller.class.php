@@ -24,6 +24,13 @@ abstract class Controller implements ControllerInterface {
     public $Security;
     public $Session;
 
+//    public function __construct($Filehandle, $MandN, $Security, $Session) {
+//        $this->Filehandle = $Filehandle;
+//        $this->MandN = $MandN;
+//        $this->Security = $Security;
+//        $this->Session = $Session;
+//    }
+
     /**
      * load dynamic html-template
      *
