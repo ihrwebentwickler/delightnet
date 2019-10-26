@@ -106,7 +106,7 @@ class Filehandle
      *
      * @param $archivFileName
      * @param array / string $sources
-     * @return object $zip
+     * @return boolean
      */
     public function createZipArchiv($archivFileName, $sources) {
         if (is_array($sources)) {
@@ -142,7 +142,7 @@ class Filehandle
                         $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
                     }
                 }
-            } else if (is_file($source) === true && filesize($file) > 0) {
+            } else if (is_file($source) === true) {
                 $zip->addFromString(basename($source), file_get_contents($source));
             }
         }
@@ -184,7 +184,6 @@ class Filehandle
      */
     public function transformIniFileToMutipleArray($filelink) {
         $arrayIni = parse_ini_file($filelink, TRUE);
-        $arraySplitIni = array();
         $arrayIniTransformed = array();
 
         foreach ($arrayIni as $groupKey => $groupArray) {

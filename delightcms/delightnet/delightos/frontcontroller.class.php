@@ -8,7 +8,8 @@
  */
 
 namespace delightnet\delightos;
-class FrontController {
+class FrontController
+{
 
     private $resolver;
 
@@ -19,8 +20,8 @@ class FrontController {
     /**
      * route, handle and flush the command to frontend-methods with encapsulated request- and response-data
      *
-     * @param stdclass Request $request
-     * @param stdclass Response $response
+     * @param Request $request
+     * @param Response $response
      */
     public function handleRequest(Request $request, Response $response) {
         $arrayCommands = $this->resolver->getCommand($request, $response);
@@ -29,5 +30,4 @@ class FrontController {
         $arrayCommands['commandClassRouting']->$strActionMethod($request, $response);
         $response->flush();
     }
-
 }

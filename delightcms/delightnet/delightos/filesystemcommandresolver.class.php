@@ -20,8 +20,8 @@ class FileSystemCommandResolver implements CommandResolver {
     /**
      * get and load variable command-methods of front- or backend-env.
      *
-     * @param stdclass Request $request
-     * @param stdclass Response $response
+     * @param Request $request
+     * @param Response $response
      * return array $arrayCommands
      */
     public function getCommand(Request $request, Response $response) {
@@ -35,8 +35,8 @@ class FileSystemCommandResolver implements CommandResolver {
      * method of delightos/Template.class, by backend-use the execute-method of the variable command-class is loaded
      *
      * @param string $cmd
-     * @param stdclass Request $request
-     * @param stdclass Response $response
+     * @param Request $request
+     * @param Response $response
      * return array $arrayCommands
      */
     protected function loadCommand($cmd, Request $request, Response $response) {

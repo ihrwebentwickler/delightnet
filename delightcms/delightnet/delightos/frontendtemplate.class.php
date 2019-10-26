@@ -13,7 +13,6 @@ namespace delightnet\delightos;
 class FrontendTemplate extends Template implements TemplateView
 {
     public $arrExtensions;
-
     public $strGooglesiteverification;
     public $strGoogleAnalytics;
 
@@ -105,28 +104,6 @@ class FrontendTemplate extends Template implements TemplateView
     }
 
     /**
-     * HTML-replace in template with google-site-verfification and -analytics
-     */
-    public function replaceGoogle() {
-        $this->strGooglesiteverification = (file_exists("public/template/parts/googlesiteverification.tpl")) ? $this->Filehandle->readFilecontent("public/template/parts/googlesiteverification.tpl") : "";
-        $this->strGoogleanalytics = (file_exists("public/template/parts/googleanalytics.tpl")) ? $this->Filehandle->readFilecontent("public/template/parts/googleanalytics.tpl") : "";
-
-        if ($this->strGooglesiteverification != "" && $this->arrMainConfiguration['main']["google"]["activateSiteverfication"] == 1 && isset($this->arrMainConfiguration["google"]["siteverficationId"])) {
-            $this->strGooglesiteverification = $this->MandN->setBlock($this->strGooglesiteverification, "SITE_VERIFICATION_ID", $this->arrMainConfiguration["google"]["siteverficationId"]);
-            $this->template = $this->MandN->setBlock($this->template, "GOOGLESITEVERIFICATION", $this->strGooglesiteverification);
-        } else {
-            $this->template = $this->MandN->setBlock($this->template, "GOOGLESITEVERIFICATION", "");
-        }
-
-        if ($this->strGoogleanalytics != null && $this->arrMainConfiguration['main']["google"]["activateGoogleanalytics"] == 1 && isset($this->arrMainConfiguration['main']["google"]["googleanalyticsId"])) {
-            $this->strGoogleanalytics = $this->MandN->setBlock($this->strGoogleanalytics, "GOOGLE_ANALYTICS_ID", $this->arrMainConfiguration["google"]["googleanalyticsId"]);
-            $this->template = $this->MandN->setBlock($this->template, "GOOGLEANALYTICS", $this->strGoogleanalytics);
-        } else {
-            $this->template = $this->MandN->setBlock($this->template, "GOOGLEANALYTICS", "");
-        }
-    }
-
-    /**
      * main-method to call templating-building-methods from stack
      */
     public function buildTemplate() {
@@ -143,7 +120,6 @@ class FrontendTemplate extends Template implements TemplateView
             }
         }
 
-        $this->replaceGoogle();
         $this->replaceHtmlData("sitetitle");
         $this->replaceHtmlData("breadcrumb");
         $this->replaceHtmlData("description");

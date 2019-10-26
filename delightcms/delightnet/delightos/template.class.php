@@ -26,7 +26,6 @@ abstract class Template
     public $dynamicSite;
     public $strActivThemeLink;
     public $objTheme;
-    public $arrLangs;
     public $objDynamicFiles;
     public $objMenuEntry;
     public $arrDevices;
@@ -46,7 +45,6 @@ abstract class Template
         $this->arrMainConfiguration = (file_exists($strDirEnv . "configuration/main.json")) ?
             json_decode($this->Filehandle->readFilecontent($strDirEnv . "configuration/main.json"), true) : null;
 
-        $this->arrLangs = (file_exists($strDirEnv . "configuration/lang.json")) ? json_decode($this->Filehandle->readFilecontent($strDirEnv . "configuration/lang.json")) : "";
         $this->objTheme = (file_exists($strDirEnv . "configuration/themes.json")) ?
             json_decode($this->Filehandle->readFilecontent($strDirEnv . "configuration/themes.json")) : null;
         $this->objDynamicFiles = (file_exists($strDirEnv . "configuration/dynamicfiles.json")) ? json_decode($this->Filehandle->readFilecontent($strDirEnv . "configuration/dynamicfiles.json")) : null;
@@ -74,21 +72,7 @@ abstract class Template
      * set default-language and new language by user-click
      */
     public function setLangEnv() {
-        if ($this->action !== false && $this->action !== $this->Session->getSession('alpha2') && in_array($this->action, $this->arrLangs->lang, true)) {
-            $this->Session->setSession('alpha2', $this->action);
-        } else {
-            // exception: lang not set
-        }
-
-        if ($this->Session->getSession('alpha2') === false) {
-            $this->strAlpha2 = $this->arrMainConfiguration['main']["defaults"]["alpha2"];
-            $this->Session->setSession('alpha2', $this->action);
-        } else {
-            $this->strAlpha2 = $this->Session->getSession('alpha2');
-        }
-
-        $this->objMenuEntry = (file_exists($this->strDirEnv . "template/lang/" . $this->strAlpha2 . "/menuentry.json")) ?
-            json_decode($this->Filehandle->readFilecontent($this->strDirEnv . "template/lang/" . $this->strAlpha2 . "/menuentry.json")) : null;
+        // todo: new lang-implementation better form
     }
 
     /**
@@ -210,29 +194,6 @@ abstract class Template
     }
 
     /**
-     * replace html-lang-data in template
-     */
-    public function replaceLang() {
-        $strHtmlLang = (file_exists($this->strDirEnv . "template/parts/lang.tpl")) ? $this->Filehandle->readFilecontent($this->strDirEnv . "template/parts/lang.tpl") : "";
-        $strHtmlLangStyle = (file_exists($this->strDirEnv . "template/parts/langstyle.tpl")) ? $this->Filehandle->readFilecontent($this->strDirEnv . "template/parts/langstyle.tpl") : "";
-        $strOutputHtmlLang = "";
-
-        if ($this->objMenuEntry != null && isset($this->arrLangs)) {
-            if (is_array($this->arrLangs->lang)) {
-                foreach ($this->arrLangs->lang as $key => $value) {
-                    $strOutputHtmlLang .= $strHtmlLang;
-                    $strActivStyle = ($value == $this->strAlpha2) ? $strHtmlLangStyle : "";
-                    $strOutputHtmlLang = $this->MandN->setBlock($strOutputHtmlLang, "LANGSTYLE", $strActivStyle);
-                    $strOutputHtmlLang = $this->MandN->setBlock($strOutputHtmlLang, "LANG", $value);
-                    $strOutputHtmlLang = $this->MandN->setBlock($strOutputHtmlLang, "CMD", $this->cmd);
-                }
-            }
-        }
-
-        $this->template = $this->MandN->setBlock($this->template, "LANGNAVIGATION", $strOutputHtmlLang);
-    }
-
-    /**
      * replace html-data by activ multi-design
      */
     public function replaceMultidesign() {
@@ -254,7 +215,7 @@ abstract class Template
                 $arrResolutionSplit = explode('x', $key);
 
                 if ($value == 1) {
-                    $strOutputScreenDimensions .= $this->MandN->setBlock($strDimension, "SCREENWIDTH", $arrResolutionSplit[0]);
+                    $strOutputScreenDimensions = $this->MandN->setBlock($strDimension, "SCREENWIDTH", $arrResolutionSplit[0]);
                     $strOutputScreenDimensions = $this->MandN->setBlock($strDimension, "SCREENWHEIGHT", $arrResolutionSplit[1]);
                 }
             }
@@ -301,7 +262,7 @@ abstract class Template
 
             // mobile responsive menü, dynamic integration of various device-menus
             if (strstr($this->template, "MENU" . $key . "-DEVICE") == true) {
-                $this->template = $this->MandN->replaceLoopContent($this->template, "MENU" . $key . "-DEVICE", $arrayLoop, $strMenuStyle, $this->cmd);
+                $this->template = $this->MandN->replaceLoopContent($this->template, $arrayLoop, $strMenuStyle, $this->cmd);
             }
         }
     }
@@ -328,7 +289,6 @@ abstract class Template
     public function setGlobalEnv() {
         if ($this->arrDevices != null) {
             $ua = $this->objRequest->getHttpUserAgent();
-            $shorty = '';
             $version = null;
             $this->arrSystemEnv["isDevice"] = false;
 
@@ -345,7 +305,6 @@ abstract class Template
             foreach ($this->arrDevices['browser'] as $k => $v) {
                 if (stripos($ua, $k) !== false) {
                     $this->arrSystemEnv["browser"] = $v['browser'];
-                    $shorty = $v['shorty'];
                     $version = preg_replace($v['version'], '$1', $ua);
                     break;
                 }

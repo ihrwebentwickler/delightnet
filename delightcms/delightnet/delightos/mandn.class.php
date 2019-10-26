@@ -96,7 +96,7 @@ class MandN
      * replace dynamics links in html-template (dynamic filelink-integration)
      *
      * @param string $template
-     * @param string $links
+     * @param array $links
      * @return string $template
      */
     public function replaceDynamicLinks($template, $links) {

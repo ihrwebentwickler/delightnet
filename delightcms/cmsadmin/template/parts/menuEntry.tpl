@@ -1,1 +1,0 @@
-<li><a href="{LINK_MENUENTRY}" title="{TITLE_MENUENTRY}">{NAME_MENUENTRY}</a></li>

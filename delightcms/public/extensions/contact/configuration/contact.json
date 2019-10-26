@@ -1,8 +1,8 @@
 {"contact": {
     "main": {
         "1": {
-            "emailTo": "mailgvs@gmx.net",
-            "subject": "Neue Email über ihrwebentwickler.de",
+            "emailTo": "mailgunnar@gmx.de",
+            "subject": "Neue Email über www.tura-hechthausen.de",
             "ConfirmationSiteFileName": "thanks",
             "messagetext": "Neue Email über {SERVERADDRESS}
                             ---------------------------------------------------------------------------

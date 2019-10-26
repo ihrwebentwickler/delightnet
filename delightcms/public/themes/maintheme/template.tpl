@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{CURRENT_LANG}">
 <!--
-This website is powered by DelightCMS 2
+This website is powered by DelightOS 3
 Enjoy for unlimited creativity!
 -->
 <head>
@@ -9,24 +9,14 @@ Enjoy for unlimited creativity!
 
     <title>{SITETITLE}</title>
     <meta name="description" content="{DESCRIPTION}">
-    <meta name="google-site-verification" content="">
-    <meta name="author" content="Your Name Here">
+    <meta name="author" content="Tura Hechthausen">
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
     <link rel="shortcut icon" href="public/images/favicon.ico">
     <link rel="apple-touch-icon-precomposed" href="public/images/apple-touch-icon-precomposed.png">
-
     <link rel="stylesheet" href="public/themes/maintheme/css/main.css"/>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css"/>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-    <script src="../../../public/js/jquery.session-20.js"></script>
-    <script src="../../../public/js/main.js"></script>
 
     {DYNAMICFILEINTEGRATION}
-    {GOOGLESITEVERIFICATION}
 
     <script>
         "use strict";
@@ -92,7 +82,5 @@ Enjoy for unlimited creativity!
             <small>Copyright Your Name Here 2012. All Rights Reserved.</small>
         </footer>
     </section>
-
-{GOOGLEANALYTICS}
 </body>
 </html>

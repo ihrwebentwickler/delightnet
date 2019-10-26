@@ -7,33 +7,13 @@
                 "CONTACT1"
             ]
         },
-        "blogger": {
-            "menuname": "Blogger",
-            "isActive": true,
-            "Marker": [
-                "BLOGGER1"
-            ]
-        },
         "epubbi": {
             "menuname": "Epubbi",
             "isActive": true,
             "Marker": [
                 "EPUBBI1"
             ]
-        },
-        "galleria": {
-            "menuname": "Galleria",
-            "isActive": true,
-            "Marker": [
-                "GALLERIA1"
-            ]
-        },
-        "mediadirectplayer": {
-            "menuname": "Media-Direct-Player",
-            "isActive": true,
-            "Marker": [
-                "MEDIADIRECTPLAYER1"
-            ]
         }
+
     }
 }
