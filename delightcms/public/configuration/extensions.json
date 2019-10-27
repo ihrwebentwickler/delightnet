@@ -3,6 +3,7 @@
         "contact": {
             "menuname": "Kontakt-Form",
             "isActive": true,
+            "isFrontendExt": false,
             "Marker": [
                 "CONTACT1"
             ]
@@ -10,6 +11,7 @@
         "epubbi": {
             "menuname": "Epubbi",
             "isActive": true,
+            "isFrontendExt": false,
             "Marker": [
                 "EPUBBI1"
             ]

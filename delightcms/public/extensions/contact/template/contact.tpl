@@ -1,6 +1,6 @@
-<div ng-controller="ContactController">
+<div>
     <h3 class="title">
-        {L:HEADER_MAP}
+        rtrtrrt
     </h3>
 
     <div my-map="">
@@ -21,12 +21,12 @@
     </div>
     <div id="contact-form">
         <h3 class="title">
-            {L:HEADER_MESSAGE}
+            rtrt
         </h3>
         <p>
-            {L:INFO_MESSAGE}.
+            rtrtrt
         </p>
-        <form action="contact.html" method="post" role="form">
+        <form action="" method="POST" enctype="multipart/form-data">
             <fieldset>
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
@@ -52,12 +52,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3">
-                        <span captcha>{{Contact.captchaImage}}</span>
-                    </div>
                     <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                        <input type="text" class="form-control" name="captcha" {STYLE_KEYERROR}
-                               placeholder="code" required="" ng-maxlength=4>
                     </div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         <span class="recaptcha imageicon fa fa-refresh" ng-click="getCaptcha()"></span>
@@ -75,22 +70,3 @@
         </form>
     </div>
 </div>
-
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
-<script>
-    GLOBAL.GMAPS = GLOBAL.GMAPS || {};
-
-    GLOBAL.GMAPS.welcometext = GLOBAL.GMAPS.welcometext || "{GOOGLEMAP_WELCOMETEXT}";
-    GLOBAL.GMAPS.actiontext = GLOBAL.GMAPS.actiontext || "{GOOGLEMAP_ACTIONTEXT}";
-    GLOBAL.GMAPS.latitude = GLOBAL.GMAPS.latitude || "{GOOGLEMAP_LATITUDE}";
-    GLOBAL.GMAPS.longitude = GLOBAL.GMAPS.longitude || "{GOOGLEMAP_LONGITUDE}";
-    GLOBAL.GMAPS.zoom = GLOBAL.GMAPS.zoom || {GOOGLEMAP_ZOOM};
-</script>
-
-<style>
-    #gmaps {
-        width: {GOOGLEMAP_WIDTH};
-        height: {GOOGLEMAP_HEIGHT};
-    }
-</style>

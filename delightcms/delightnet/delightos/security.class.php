@@ -17,9 +17,8 @@ class Security {
     public $Filehandle;
 
     public function __construct() {
-        $this->salt = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/cmsadmin/configuration/salt.ini", true);
+        $this->salt = file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/delightnet/delightos/salt.php", true);
         $this->whitelist = "a-zA-Z0-9äöüÄÖÜ§\+\-\!\*\#@ß";
-
         $this->Filehandle = new Filehandle();
     }
 
@@ -34,7 +33,7 @@ class Security {
         $ivlen = openssl_cipher_iv_length($cipher = self::SESS_CIPHER);
         $iv = substr($c, 0, $ivlen);
         $ciphertext_raw = substr($c, $ivlen/*+$sha2len*/);
-        $crypted = openssl_decrypt($ciphertext_raw, $cipher, $this->salt["env"]["key"], $options = OPENSSL_RAW_DATA, $iv);
+        $crypted = openssl_decrypt($ciphertext_raw, $cipher, $this->salt, $options = OPENSSL_RAW_DATA, $iv);
 
         return $crypted;
     }
@@ -48,7 +47,7 @@ class Security {
     public function encodeString($strEncoded) {
         $ivlen = openssl_cipher_iv_length($cipher = self::SESS_CIPHER);
         $iv = openssl_random_pseudo_bytes($ivlen);
-        $ciphertext_raw = openssl_encrypt($strEncoded, $cipher, $this->salt["env"]["key"], $options = OPENSSL_RAW_DATA, $iv);
+        $ciphertext_raw = openssl_encrypt($strEncoded, $cipher, $this->salt, $options = OPENSSL_RAW_DATA, $iv);
         $decrypted = base64_encode($iv ./*$hmac.*/
             $ciphertext_raw);
         return $decrypted;

@@ -2,8 +2,8 @@
     "main": {
         "1": {
             "emailTo": "mailgunnar@gmx.de",
-            "subject": "Neue Email über www.tura-hechthausen.de",
-            "ConfirmationSiteFileName": "thanks",
+            "subject": "Neue Email über tura-hechthausen",
+            "ConfirmationSiteFileName": "versendet",
             "messagetext": "Neue Email über {SERVERADDRESS}
                             ---------------------------------------------------------------------------
                             Email vom {TIMESTAMP} Uhr

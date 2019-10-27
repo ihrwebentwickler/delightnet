@@ -13,11 +13,7 @@
         "kontakt"
       ],
       [
-        "kontakt",
-        "galleria",
-        "mediadirectplayer",
-        "blogger",
-        "ebook"
+        "kontakt"
       ]
     ],
     "multidesign": {
@@ -39,12 +35,6 @@
     },
     "devices": {
       "activateDevices": false
-    },
-    "google": {
-      "activateSiteverfication": false,
-      "siteverficationId": 5678,
-      "activateGoogleanalytics": false,
-      "googleanalyticsId": 1234
     }
   }
 }

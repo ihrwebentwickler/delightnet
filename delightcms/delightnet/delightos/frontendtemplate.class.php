@@ -2,19 +2,16 @@
 
 /*
  * basic superclass template for building classic html-sites and device-templates
- * 
+ *
  * @author    Gunnar von Spreckelsen <service@ihrwebentwickler.de>
  * @package   delightos
- * 
+ *
  */
 
 namespace delightnet\delightos;
 
-class FrontendTemplate extends Template implements TemplateView
-{
+class FrontendTemplate extends Template implements TemplateView {
     public $arrExtensions;
-    public $strGooglesiteverification;
-    public $strGoogleAnalytics;
 
     /**
      * buid Env for extension-integration and -development
@@ -34,7 +31,10 @@ class FrontendTemplate extends Template implements TemplateView
 
                     $strNamespace = 'delightnet\\extensions\\' . strtolower($strClassCamelCase) . '\\';
 
-                    if (file_exists("public/extensions/" . strtolower($strClassCamelCase) . "/configuration/" . strtolower($strClassCamelCase) . ".json")) {
+                    if (
+                        file_exists("public/extensions/" . strtolower($strClassCamelCase) . "/configuration/" . strtolower($strClassCamelCase) . ".json")
+                        && $this->arrExtensions['extensions'][$strExtName]["isFrontendExt"] === false
+                    ) {
                         $jsonConfiguration = $this->Filehandle->readFilecontent("public/extensions/" . strtolower($strClassCamelCase) . "/configuration/" . strtolower($strClassCamelCase) . ".json");
                         $jsonConfiguration = $this->MandN->deleteControlCharactersAndWhitespaceFromString($jsonConfiguration);
                         $objConfiguration = json_decode($jsonConfiguration);
@@ -78,7 +78,7 @@ class FrontendTemplate extends Template implements TemplateView
                             if (!$strObj instanceof $strClassPath) {
                                 $objExt = new $strClassPath();
                                 $objExt->setController($strClassPath . strtolower($strClassCamelCase), $keyMarker + 1, $strExtTemplate, $objConfiguration, $this->arrLangs,
-                                    $this->strAlpha2, $this->objRequest, $this->Filehandle, $this->MandN, $this->Security, $this->Session);
+                                    $this->strAlpha2 , $this->objRequest, $this->Filehandle, $this->MandN, $this->Security, $this->Session);
                             }
                             $this->template = $this->MandN->setBlock($this->template, $strSearchInput, $objExt->action());
                         } else {
@@ -98,6 +98,8 @@ class FrontendTemplate extends Template implements TemplateView
         $this->template = $this->MandN->setBlock($this->template, "BROWSER", $this->arrSystemEnv["browser"]);
         $this->template = $this->MandN->setBlock($this->template, "VERSION", $this->arrSystemEnv["version"]);
         $this->template = $this->MandN->setBlock($this->template, "IS_MOBILE_DEVICE", $this->arrSystemEnv["isDevice"]);
+        $this->template = $this->MandN->setBlock($this->template, "MIN_VERSION_HTML5_MEDIA", $this->arrSystemEnv["minVersionHtml5Media"]);
+        $this->template = $this->MandN->setBlock($this->template, "PLAYER_CODE_HTML5_MEDIA", $this->arrSystemEnv["playerCodeHtml5Media"]);
 
         $this->template = $this->MandN->setBlock($this->template, "CURRENT_COMMAND", $this->cmd);
         $this->template = $this->MandN->setBlock($this->template, "CURRENT_LANG", $this->strAlpha2);
@@ -107,6 +109,7 @@ class FrontendTemplate extends Template implements TemplateView
      * main-method to call templating-building-methods from stack
      */
     public function buildTemplate() {
+        $this->strAlpha2 = 'de';
         $this->setCmd();
         $this->setAction();
         $this->setLangEnv();
@@ -114,11 +117,13 @@ class FrontendTemplate extends Template implements TemplateView
         $this->setDynamicSite();
         $this->setGlobalEnv();
 
+
         if (!empty($this->arrMainConfiguration['main']["dynamicFiles"])) {
             foreach ($this->arrMainConfiguration['main']["dynamicFiles"] as $arrayDynamicFiles) {
                 $this->template = $this->MandN->replaceDynamicLinks($this->template, $arrayDynamicFiles);
             }
         }
+
 
         $this->replaceHtmlData("sitetitle");
         $this->replaceHtmlData("breadcrumb");

@@ -23,16 +23,7 @@ Enjoy for unlimited creativity!
 
         // js global env
         var GLOBAL = GLOBAL || {};
-        GLOBAL.ENV = GLOBAL.ENV || {};
         GLOBAL.STATUS = GLOBAL.STATUS || {};
-
-        GLOBAL.ENV = {
-            "os": "{OS}",
-            "browser": "{BROWSER}",
-            "version": {VERSION},
-            "isDevice": {IS_MOBILE_DEVICE},
-        };
-
         // status-infos
         GLOBAL.STATUS = {
             "currentCommand": "{CURRENT_COMMAND}",
@@ -51,7 +42,7 @@ Enjoy for unlimited creativity!
             <nav id="mainNavigation" data-role="navbar">
                 <ul>
                     {LOOP MENU0}
-                        <li><a href="/{FILENAME}.html" title="{SITE}" {ACTIV} data-role="button">{SITE}</a></li>
+                        <li><a class="{MENU_ACTIV}" href="/{FILENAME}.html">{SITE}</a></li>
                     {/LOOP}
                 </ul>
             </nav>
@@ -65,9 +56,6 @@ Enjoy for unlimited creativity!
                     {/LOOP}
                 </select>
             </div>
-            <div id="languageNavigation">
-                {LANGNAVIGATION}
-            </div>
             <div class="clear">
             </div>
         </section>
@@ -79,7 +67,7 @@ Enjoy for unlimited creativity!
             </article>
         </section>
         <footer>
-            <small>Copyright Your Name Here 2012. All Rights Reserved.</small>
+            <small>Copyright Your Name Here 2019. All Rights Reserved.</small>
         </footer>
     </section>
 </body>

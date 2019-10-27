@@ -19,10 +19,9 @@ class ContactController extends Controller {
         $isValidCaptcha = false;
 
         if ($this->objRequest->getParameter('contactform')) {
-            $isValidCaptcha = $objContact->checkCaptcha($this->objRequest->getParameter('captcha'));
             $isValidForm = $objContact->checkForm($arrayHtmlEmailData, $this->objConfiguration, $this->strInstanceId);
 
-            if ($isValidCaptcha === true && $isValidForm === true) {
+            if ($isValidForm === true) {
                 $objContact->sendMail($arrayHtmlEmailData, $this->objConfiguration, $this->objRequest, $this->strInstanceId);
                 $this->objRequest->loadLocation($this->objConfiguration->contact->main->{$this->strInstanceId}->ConfirmationSiteFileName);
                 exit;
@@ -32,12 +31,15 @@ class ContactController extends Controller {
         if ($this->objRequest->getParameter("query") == "getCaptchaimage") {
             $htmlCaptcha = (file_exists("public/extensions/contact/template/parts/spamkeyimage.tpl")) ? $this->Filehandle->readFilecontent("public/extensions/contact/template/parts/spamkeyimage.tpl") : "";
             $strSpamkey = $objContact->getCaptcha($this->objConfiguration, $this->strInstanceId);
+            echo $strSpamkey;
             $this->renderAjax($this->MandN->setBlock($htmlCaptcha, "IMGDATA", $strSpamkey));
         }
 
         $this->replaceInputData($arrayHtmlEmailData);
         $this->replaceSpamInputError($isValidCaptcha);
+
         return $this->strExtTemplate;
+
     }
 
     public function replaceInputData($arrayHtmlEmailData) {
@@ -45,7 +47,6 @@ class ContactController extends Controller {
             foreach ($this->objConfiguration->contact->formParameters->{$this->strInstanceId} as $key => $value) {
                 $htmlStringValue = (isset($arrayHtmlEmailData[$key]) && $arrayHtmlEmailData[$key] != "{DATA" . $key . "}") ? $arrayHtmlEmailData[$key] : "";
                 $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "DATA" . $key, $htmlStringValue);
-
                 $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "ERROR" . $key, $this->objConfiguration->contact->formParameters->{$this->strInstanceId}->{$key}->error);
             }
         }

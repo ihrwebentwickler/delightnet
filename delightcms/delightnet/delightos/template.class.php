@@ -9,8 +9,7 @@
 
 namespace delightnet\delightos;
 
-abstract class Template
-{
+abstract class Template {
     protected $objRequest;
     protected $objResponse;
     public $strDirEnv;
@@ -26,6 +25,7 @@ abstract class Template
     public $dynamicSite;
     public $strActivThemeLink;
     public $objTheme;
+    public $arrLangs;
     public $objDynamicFiles;
     public $objMenuEntry;
     public $arrDevices;
@@ -45,6 +45,7 @@ abstract class Template
         $this->arrMainConfiguration = (file_exists($strDirEnv . "configuration/main.json")) ?
             json_decode($this->Filehandle->readFilecontent($strDirEnv . "configuration/main.json"), true) : null;
 
+        $this->arrLangs = (file_exists($strDirEnv . "configuration/lang.json")) ? json_decode($this->Filehandle->readFilecontent($strDirEnv . "configuration/lang.json")) : "";
         $this->objTheme = (file_exists($strDirEnv . "configuration/themes.json")) ?
             json_decode($this->Filehandle->readFilecontent($strDirEnv . "configuration/themes.json")) : null;
         $this->objDynamicFiles = (file_exists($strDirEnv . "configuration/dynamicfiles.json")) ? json_decode($this->Filehandle->readFilecontent($strDirEnv . "configuration/dynamicfiles.json")) : null;
@@ -52,7 +53,9 @@ abstract class Template
         $this->arrSystemEnv["os"] = null;
         $this->arrSystemEnv["browser"] = null;
         $this->arrSystemEnv["version"] = null;
-        $this->arrSystemEnv["isDevice"] = false;
+        $this->arrSystemEnv["isMobileDevice"] = false;
+        $this->arrSystemEnv["minVersionHtml5Media"] = null;
+        $this->arrSystemEnv["playerCodeHtml5Media"] = null;
 
         $this->arrDevices = null;
         if (file_exists($objRequest->getDocumentRoot() . "/public/configuration/devices.php")) {
@@ -72,7 +75,19 @@ abstract class Template
      * set default-language and new language by user-click
      */
     public function setLangEnv() {
-        // todo: new lang-implementation better form
+        if ($this->action !== false && $this->action !== $this->Session->getSession('alpha2') && in_array($this->action, $this->arrLangs->lang, true)) {
+            $this->Session->setSession('alpha2', $this->action);
+        }
+
+        if ($this->Session->getSession('alpha2') === false) {
+            $this->strAlpha2 = $this->arrMainConfiguration['main']["defaults"]["alpha2"];
+            $this->Session->setSession('alpha2', $this->action);
+        } else {
+            $this->strAlpha2 = $this->Session->getSession('alpha2');
+        }
+
+        $this->objMenuEntry = (file_exists($this->strDirEnv . "template/lang/" . $this->strAlpha2 . "/menuentry.json")) ?
+            json_decode($this->Filehandle->readFilecontent($this->strDirEnv . "template/lang/" . $this->strAlpha2 . "/menuentry.json")) : null;
     }
 
     /**
@@ -108,13 +123,13 @@ abstract class Template
      */
     public function setDynamicSite() {
         // if exists load special complete-lang-templatefile
-        if (file_exists($this->strDirEnv . "template/lang/" . $this->strAlpha2 . "/" . $this->cmd . ".tpl")) {
+        if (file_exists($this->strDirEnv . "/template/lang/" . $this->strAlpha2 . "/" . $this->cmd . ".tpl")) {
             $this->dynamicSite = $this->Filehandle->readFilecontent($this->strDirEnv . "/template/lang/" . $this->strAlpha2 . "/" . $this->cmd . ".tpl");
         } else {
-            if (file_exists($this->strDirEnv . "template/" . $this->cmd . ".tpl")) {
+            if (file_exists($this->strDirEnv . "/template/" . $this->cmd . ".tpl")) {
                 $this->dynamicSite = $this->Filehandle->readFilecontent($this->strDirEnv . "/template/" . $this->cmd . ".tpl");
-            } elseif (isset($this->arrMainConfiguration['main']["defaults"]["error"]) && file_exists($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["error"] . ".tpl")) {
-                $this->dynamicSite = $this->Filehandle->readFilecontent($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["error"] . ".tpl");
+            } elseif (isset($this->arrMainConfiguration['main']["defaults"]["error"]) && file_exists($this->strDirEnv . "/template/" . $this->arrMainConfiguration['main']["defaults"]["error"] . ".tpl")) {
+                $this->dynamicSite = $this->Filehandle->readFilecontent($this->strDirEnv . "/template/" . $this->arrMainConfiguration['main']["defaults"]["error"] . ".tpl");
                 $this->cmd = $this->arrMainConfiguration['main']["defaults"]["error"];
             } else {
                 $this->cmd = "";
@@ -139,6 +154,7 @@ abstract class Template
                 if (file_exists($langfile)) {
                     $strLangMarkerMain = $this->Filehandle->readFilecontent($langfile);
                     $objLangMarkerMain = json_decode($this->Filehandle->cleanJsonStr($strLangMarkerMain));
+
                     if (is_object($objLangMarkerMain->{$cmdkey})) {
                         foreach ($objLangMarkerMain->{$cmdkey} as $key => $value)
                             $this->template = $this->MandN->setBlock($this->template, "L:" . strtoupper($key), $value);
@@ -168,7 +184,7 @@ abstract class Template
         $arrayDynamicFilesObj[] = (isset($this->objDynamicFiles->dynamicFiles->{$this->strDeviceOutputType}->$currentFile)) ? $this->objDynamicFiles->dynamicFiles->{$this->strDeviceOutputType}->$currentFile : null;
 
         foreach ($arrayDynamicFilesObj as $key => $arrDynamicFilesOfSite) {
-            if (!empty($arrDynamicFilesOfSite)) {
+            if ($arrDynamicFilesOfSite !== null && sizeof($arrDynamicFilesOfSite) > 0) {
                 $this->template = $this->MandN->replaceDynamicLinks($this->template, $arrDynamicFilesOfSite);
             }
         }
@@ -189,8 +205,32 @@ abstract class Template
             }
         }
 
-        $this->strActivThemeLink = ($this->strActivThemeLink == "") ? $this->strDirEnv . "/template" : $this->strDirEnv . "themes/" . $this->strActivThemeLink . "/";
+        $this->strActivThemeLink = ($this->strActivThemeLink == "") ? $this->strDirEnv . "/template" : $this->strDirEnv . "/themes/" . $this->strActivThemeLink . "/";
         $this->template = (file_exists($this->strActivThemeLink . "template.tpl")) ? $this->Filehandle->readFilecontent($this->strActivThemeLink . "template.tpl") : "";
+        $this->template = (file_exists($this->strActivThemeLink . "template.tpl")) ? $this->Filehandle->readFilecontent($this->strActivThemeLink . "template.tpl") : "";
+    }
+
+    /**
+     * replace html-lang-data in template
+     */
+    public function replaceLang() {
+        $strHtmlLang = (file_exists($this->strDirEnv . "/template/parts/lang.tpl")) ? $this->Filehandle->readFilecontent($this->strDirEnv . "/template/parts/lang.tpl") : "";
+        $strHtmlLangStyle = (file_exists($this->strDirEnv . "/template/parts/langstyle.tpl")) ? $this->Filehandle->readFilecontent($this->strDirEnv . "/template/parts/langstyle.tpl") : "";
+        $strOutputHtmlLang = "";
+
+        if ($this->objMenuEntry != null && isset($this->arrLangs)) {
+            if (is_array($this->arrLangs->lang)) {
+                foreach ($this->arrLangs->lang as $key => $value) {
+                    $strOutputHtmlLang .= $strHtmlLang;
+                    $strActivStyle = ($value == $this->strAlpha2) ? $strHtmlLangStyle : "";
+                    $strOutputHtmlLang = $this->MandN->setBlock($strOutputHtmlLang, "LANGSTYLE", $strActivStyle);
+                    $strOutputHtmlLang = $this->MandN->setBlock($strOutputHtmlLang, "LANG", $value);
+                    $strOutputHtmlLang = $this->MandN->setBlock($strOutputHtmlLang, "CMD", $this->cmd);
+                }
+            }
+        }
+
+        $this->template = $this->MandN->setBlock($this->template, "LANGNAVIGATION", $strOutputHtmlLang);
     }
 
     /**
@@ -215,7 +255,7 @@ abstract class Template
                 $arrResolutionSplit = explode('x', $key);
 
                 if ($value == 1) {
-                    $strOutputScreenDimensions = $this->MandN->setBlock($strDimension, "SCREENWIDTH", $arrResolutionSplit[0]);
+                    $strOutputScreenDimensions .= $this->MandN->setBlock($strDimension, "SCREENWIDTH", $arrResolutionSplit[0]);
                     $strOutputScreenDimensions = $this->MandN->setBlock($strDimension, "SCREENWHEIGHT", $arrResolutionSplit[1]);
                 }
             }
@@ -230,39 +270,40 @@ abstract class Template
      * replace html-data of menus in template
      */
     public function replaceMenu() {
-        if (!empty($this->arrMainConfiguration['main']["menu"])) {
-            $arrayLoop = array();
+        if (isset($this->arrMainConfiguration['main']["defaults"]["menustyle"]) &&
+            file_exists($this->strDirEnv . "/template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"])
+            && !empty($this->arrMainConfiguration['main']["menu"])
+        ) {
+            $strMenuStyle = $this->Filehandle->readFilecontent($this->strDirEnv . "/template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"]);
 
-            if (isset($this->arrMainConfiguration['main']["defaults"]["menustyle"]) &&
-                file_exists($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"])) {
-                $strMenuStyle = $this->Filehandle->readFilecontent($this->strDirEnv . "template/" . $this->arrMainConfiguration['main']["defaults"]["menustyle"]);
-            } else {
-                $strMenuStyle = "";
+            $arrayLoopInput = array();
+            // device responsive Menü
+            if (strstr($this->template, "-DEVICE}") == true) {
+                $arrayLoopInputDevice = array();
             }
+            if ($this->objMenuEntry != null) {
+                foreach ($this->arrMainConfiguration['main']["menu"] as $menuKey => $arrMenu) {
+                    foreach ($arrMenu as $key => $filename) {
+                        $arrayLoopInput[$menuKey][$key]['FILENAME'] = $filename;
+                        $arrayLoopInput[$menuKey][$key]['SITE'] = $this->objMenuEntry->menuentry->{$filename};
 
-            foreach ($this->arrMainConfiguration['main']["menu"] as $key => $menu) {
-                foreach ($menu as $value) {
-                    $object = new \stdClass();
-
-                    $object->configuration = new \stdClass();
-                    $object->configuration->identifier = "MENU" . $key;
-
-                    $object->data = new \stdClass();
-                    $object->data->filename = $value;
-                    $object->data->site = $this->objMenuEntry->menuentry->{$value};
-                    $object->data->replaceNames = [];
-                    $object->data->replaceNames[] = "filename";
-                    $object->data->replaceNames[] = "site";
-
-                    $arrayLoop[] = $object;
+                        // mobile responsive menü, dynamic integration of various device-menus
+                        if (strstr($this->template, "MENU" . $menuKey . "-DEVICE") == true) {
+                            $arrayLoopInputDevice[$menuKey][$key]['FILENAME'] = $filename;
+                            $arrayLoopInputDevice[$menuKey][$key]['SITE'] = $this->objMenuEntry->menuentry->{$filename};
+                        }
+                    }
                 }
             }
 
-            $this->template = $this->MandN->replaceLoopContent($this->template, $arrayLoop, $strMenuStyle, $this->cmd);
+            foreach ($arrayLoopInput as $menuKey => $arrayMenu) {
+                $this->template = $this->MandN->replaceLoopContent($this->template, 'MENU' . $menuKey, $arrayMenu, "MENU_ACTIV", $strMenuStyle, $this->cmd, "FILENAME");
+            }
 
-            // mobile responsive menü, dynamic integration of various device-menus
-            if (strstr($this->template, "MENU" . $key . "-DEVICE") == true) {
-                $this->template = $this->MandN->replaceLoopContent($this->template, $arrayLoop, $strMenuStyle, $this->cmd);
+            if (!empty ($arrayLoopInputDevice)) {
+                foreach ($arrayLoopInputDevice as $menuKey => $arrayMenuDevice) {
+                    $this->template = $this->MandN->replaceLoopContent($this->template, "MENU" . $menuKey . "-DEVICE", $arrayMenuDevice, "", "", $this->cmd, "FILENAME");
+                }
             }
         }
     }
@@ -289,14 +330,15 @@ abstract class Template
     public function setGlobalEnv() {
         if ($this->arrDevices != null) {
             $ua = $this->objRequest->getHttpUserAgent();
+            $shorty = '';
             $version = null;
-            $this->arrSystemEnv["isDevice"] = false;
+            $this->arrSystemEnv["isDevice"] = "false";
 
             // Operating system
             foreach ($this->arrDevices['os'] as $k => $v) {
                 if (stripos($ua, $k) !== false) {
                     $this->arrSystemEnv["os"] = $v['os'];
-                    $this->arrSystemEnv["isDevice"] = (boolean)$v['isDevice'];
+                    $this->arrSystemEnv["isDevice"] = (string)$v['isDevice'];
                     break;
                 }
             }
@@ -305,6 +347,9 @@ abstract class Template
             foreach ($this->arrDevices['browser'] as $k => $v) {
                 if (stripos($ua, $k) !== false) {
                     $this->arrSystemEnv["browser"] = $v['browser'];
+                    $this->arrSystemEnv["minVersionHtml5Media"] = $v['minVersionHtml5Media'];
+                    $this->arrSystemEnv["playerCodeHtml5Media"] = $v['playerCodeHtml5Media'];
+                    $shorty = $v['shorty'];
                     $version = preg_replace($v['version'], '$1', $ua);
                     break;
                 }

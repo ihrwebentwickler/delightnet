@@ -2,16 +2,15 @@
 
 /*
  * very small own template-language, a bit like smarty, but MandN tasts good to
- * 
+ *
  * @author    Gunnar von Spreckelsen <service@ihrwebentwickler.de>
  * @package   delightos
- * 
+ *
  */
 
 namespace delightnet\delightos;
 
-class MandN
-{
+class MandN {
     public $strCssLink;
     public $strJsLink;
     public $arrayIntegrationFileExtensions;
@@ -56,38 +55,34 @@ class MandN
      * replace loop-content of a string, replace in main-string and return main-string
      *
      * @param string $strContentInput
+     * @param string $strLoopIdentifier
      * @param array $arrayLoopInput
-     * @param string $style
-     * @param string $cmd
+     * @param string $strActionSearchValue
+     * @param string $strAction
+     * @return string $strContent
      */
-    public function replaceLoopContent($strContentInput, $arrayLoopInput, $style, $cmd) {
+    public function replaceLoopContent($strContentInput, $strLoopIdentifier, $arrayLoopInput, $strActionSearchValue = "", $strAction = "", $cmd, $strSearchKey) {
+        $strRegex = '#{' . 'LOOP ' . strtoupper($strLoopIdentifier) . '}.*.{/LOOP}#isU';
+        $strContent = preg_replace($strRegex, '{' . strtoupper($strLoopIdentifier) . '}', $strContentInput);
+
+        preg_match_all($strRegex, $strContentInput, $arrayContentLoop);
+        $strContentLoop = explode('{LOOP ' . strtoupper($strLoopIdentifier) . '}', $arrayContentLoop[0][0])[1];
+        $strContentLoop = trim(explode('{/LOOP}', $strContentLoop)[0]);
+
         $strContentPart = "";
-        foreach ($arrayLoopInput as $key => $data) {
-            $strRegex = '#{' . 'LOOP ' . strtoupper($data->configuration->identifier) . '}.*.{/LOOP}#isU';
-            $strContent = preg_replace($strRegex, '{' . strtoupper($data->configuration->identifier) . '}', $strContentInput);
-            preg_match_all($strRegex, $strContentInput, $arrayContentLoop);
-
-            $strContentLoop = explode('{LOOP ' . strtoupper($data->configuration->identifier) . '}', $arrayContentLoop[0][0])[1];
-            $strContentLoop = trim(explode('{/LOOP}', $strContentLoop)[0]);
-
-            if (isset($data->data->replaceNames)) {
-                foreach ($data->data->replaceNames as $value) {
-                    $this->setBlock($strContentLoop, strtoupper($value), $data->data->{$value});
-                }
-            }
-
+        foreach ($arrayLoopInput as $keyEntry => $arrayEntry) {
             $strContentPart .= $strContentLoop;
-
-            if (strstr($strContentInput, 'ACTIV', false) && $style !== "") {
-                if ($cmd === $data->data->filename) {
-                    $this->setBlock($strContentPart, "ACTIV", $style);
-                } else {
-                    $this->setBlock($strContentPart, "ACTIV", "");
+            foreach ($arrayLoopInput[$keyEntry] as $keyBlock => $arrayBlock) {
+                $strContentPart = $this->setBlock($strContentPart, $keyBlock, $arrayLoopInput[$keyEntry][$keyBlock]);
+                if ($strActionSearchValue !== "" && $strAction !== "") {
+                    $strContentPart = ($arrayLoopInput[$keyEntry][strtoupper($strSearchKey)] === $cmd) ?
+                        $this->setBlock($strContentPart, $strActionSearchValue, $strAction) :
+                        $this->setBlock($strContentPart, $strActionSearchValue, '');
                 }
             }
         }
 
-        $strContent = $this->setBlock($strContent, strtoupper($data->configuration->identifier), $strContentPart);
+        $strContent = $this->setBlock($strContent, strtoupper($strLoopIdentifier), $strContentPart);
         return $strContent;
     }
 
@@ -96,7 +91,7 @@ class MandN
      * replace dynamics links in html-template (dynamic filelink-integration)
      *
      * @param string $template
-     * @param array $links
+     * @param string $links
      * @return string $template
      */
     public function replaceDynamicLinks($template, $links) {
@@ -141,7 +136,7 @@ class MandN
                 }
             }
         }
-
+echo $strDynamicLink;
         return $strDynamicLink;
     }
 
@@ -157,34 +152,5 @@ class MandN
             hexdec(substr($strRgb, 2, 2)),
             hexdec(substr($strRgb, 4, 2)),
         );
-    }
-
-    public function replaceDynamicFilesIntegration($template, $cmd, $IntegrationFiles, $documentRoot) {
-        $strDynamicFilesIntegration = "";
-        $arrayIntegrationFileExtensions = array("css", "js");
-
-        if (!is_array($IntegrationFiles)) {
-            $arrayIntegrationFiles[0]['file'] = $IntegrationFiles;
-        } else {
-            $arrayIntegrationFiles = $IntegrationFiles;
-        }
-
-        foreach ($arrayIntegrationFiles as $key => $arrayFiles) {
-            foreach ($arrayFiles as $filekey => $filename) {
-                foreach ($arrayIntegrationFileExtensions as $extkey => $extvalue) {
-                    if (strstr($filename, "." . $extvalue) && file_exists($documentRoot . "public/template/parts/include_" . $extvalue . ".tpl")) {
-                        if (($cmd === false) || ($filekey == "template") || ($cmd !== false && $cmd == $filekey && file_exists($documentRoot . "public/template/" . $cmd . ".tpl"))) {
-                            $fileContent = $this->Filehandle->readFilecontent($documentRoot . "public/template/parts/include_" . $extvalue . ".tpl") . "\n";
-                            $strDynamicFilesIntegration .= $this->setBlock($fileContent, "SRC_" . strtoupper($extvalue), $filename);
-                        }
-                    }
-                }
-            }
-        }
-
-        $strDynamicFilesIntegration .= "{DYNAMICFILEINTEGRATION}\n";
-        $template = $this->setBlock($template, "DYNAMICFILEINTEGRATION", $strDynamicFilesIntegration);
-
-        return $template;
     }
 }

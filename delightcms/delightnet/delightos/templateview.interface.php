@@ -15,13 +15,9 @@ interface TemplateView {
 
     public function setDynamicSite();
 
-    public function replaceLanguageTexts();
-
     public function replaceDynamicFiles();
 
     public function setThemeEnv();
-
-    public function replaceLang();
 
     public function replaceMultidesign();
 
