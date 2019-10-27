@@ -8,6 +8,7 @@ Enjoy for unlimited creativity!
     <meta charset="UTF-8">
 
     <title>{SITETITLE}</title>
+    <meta name="robots" content="noindex">
     <meta name="description" content="{DESCRIPTION}">
     <meta name="author" content="Tura Hechthausen">
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -52,7 +53,7 @@ Enjoy for unlimited creativity!
                         class="ui-selectmenu-list ui-listview">
                     <option title="pluginwahl">Auswahl Plugin:</option>
                     {LOOP MENU1}
-                        <option title="{FILENAME}" {ACTIV}>{SITE}</option>
+                        <option title="{FILENAME}" {MENU_ACTIV}>{SITE}</option>
                     {/LOOP}
                 </select>
             </div>
