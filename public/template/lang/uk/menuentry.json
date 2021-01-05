@@ -1,0 +1,10 @@
+{
+  "menuentry": {
+    "home": "Home",
+    "hi": "Say-Hi",
+    "hello": "Say-Hello",
+    "contact": "Contact",
+    "sitemap": "Sitemap",
+    "thanks": "Thanks"
+  }
+}

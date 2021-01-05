@@ -1,0 +1,318 @@
+/*
+CSS Theme-Styles
+
+CONTENT
+---------------------------------------
+1.) browser-init
+2.) main-design
+3.) navigation
+4.) fonts
+5.) buttons
+6.) design-elements
+7.) site-formating and margins
+---------------------------------------
+*/
+
+/* -------------------------------------------------------------------------- */
+/* 1.) browser-init */
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+ul[id],
+ol[id],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.2;
+}
+
+/* Remove margin, padding and list styles on ul, ol elements with a class- or id-attribute */
+ul[class],
+ol[class],
+ul[id],
+ol[id] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+}
+
+/* list-entries with a class-attribute should be placed inline */
+ul li[class],
+ol li[class] {
+    display: inline-block;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* 2.) main-design */
+html, body {
+    font-family: "Helvetica Neue", Helvetica, Georgia, Arial, sans-serif;
+    font-size: 1rem;
+    color: #000;
+}
+
+html {
+    background: #3367d5;
+}
+
+p {
+    line-height: 1.4;
+}
+
+.content-wrapper {
+    height: 100%;
+    background: #fff;
+}
+
+header {
+    width: 100%;
+    text-align: center;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 1px;
+}
+
+#content {
+    width: 100%;
+    background: white;
+}
+
+#breadcrumbs {
+    padding: 3px 12px 2px 0;
+    text-align: right;
+}
+
+#breadcrumbs a, #breadcrumbs span {
+    vertical-align: top;
+    color: #9e9e9e;
+    font-size: 0.8rem;
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* 3.) navigation */
+ul#menu {
+    overflow: hidden;
+    text-align: center;
+    background: #2850a6;
+}
+
+ul#menu li, ul#menu li a, ul#menu li span, ul#menu li.lang-navigation > div:first-child {
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+ul#menu li a, ul#menu li span {
+    cursor: pointer;
+}
+
+ul#menu li a {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+ul#menu li a:hover {
+    opacity: 0.7;
+}
+
+ul#menu li.logo a img {
+    width: 154px;
+    height: 44px;
+    margin: 12px 0;
+}
+
+ul#menu li.logo a {
+    margin-left: 10px;
+}
+
+ul#menu li.lang-navigation, ul#menu li.additional-media {
+    margin-left: 26px;
+}
+
+ul#menu li.lang-navigation div img.activeLang {
+    opacity: 0.4;
+}
+
+ul#menu li.lang-navigation div img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 16px;
+}
+
+ul#menu li.lang-navigation div img:hover {
+    cursor: pointer;
+}
+
+ul#menu a.active, ul#menu li.additional-media span.active {
+    color: #F4970B;
+}
+
+ul#menu li.dropdown {
+    margin-left: 10px;
+}
+
+ul#menu li.dropdown a, ul#menu li.menu-links a {
+    margin-left: 12px;
+}
+
+ul#menu li:nth-child(3) a {
+    margin-left: 2px;
+}
+
+ul#menu li.dropdown a i.material-icons {
+    display: inline-block;
+    vertical-align: bottom;
+    margin: -6px 0 -6px -2px;
+    font-size: 22px;
+}
+
+ul#menu li.additional-media a {
+    vertical-align: bottom;
+    font-size: 18px;
+    color: #fff;
+}
+
+/* submenu */
+div.dropdown-menu {
+    margin: 4px 0 0 12px;
+    position: absolute;
+}
+
+div.dropdown-menu .content-box-orangeborder a {
+    display: block;
+    margin-right: 12px;
+    text-align: center;
+}
+
+.content-box-orangeborder {
+    display: block;
+    width: 130px;
+    background-color: black;
+    color: #fff;
+    padding: 8px;
+    position: relative;
+    border: 2px solid #F4970B;
+    border-radius: 6px;
+}
+/* -------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------- */
+/* 4.) fonts */
+a:link, a:visited, a:active {
+    text-decoration: underline;
+    color: #808080;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+h3 {
+    margin-bottom: 6px;
+    font-size: 1.2rem;
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* 5.) buttons */
+input[type=submit], input[type=reset], button {
+    height: 36px;
+    padding: 6px 12px;
+    background-color: #F4970B;
+    border: none;
+    color: white;
+    font-size: 1.1em;
+    text-decoration: none;
+    border-radius: 0.10em;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    text-align: center;
+    cursor: pointer;
+}
+
+input[type=submit]:hover, input[type=reset]:hover, button:hover {
+    opacity: 0.8;
+}
+
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* 7.) site generel and margins/directions */
+.margin-content {
+    width: calc(100% - 24px);
+    padding: 12px;
+}
+
+.full-content img {
+    width: 100%;
+    height: auto;
+}
+
+.margin-top {
+    margin-top: 12px;
+}
+
+.margin-top-big {
+    margin-top: 30px;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.display-none {
+    display: none;
+}
+
+/* -------------------------------------------------------------------------- */

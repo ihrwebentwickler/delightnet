@@ -1,0 +1,83 @@
+/* 
+    Document   : contact.css, Part of contact-plugin
+    Created on : 13.06.2014, 19:17:53
+    Author     : Ihr Webentwickler, Gunnar von Spreckelsen
+    Description: realize styling of contactform with spam-image
+*/
+
+/*
+CONTENT:
+==========================================
+1.) Formating of map and content-boxes
+2.) Contact-form
+ */
+
+/* ======= 1.) Formating of map and content-boxes ==============*/
+#map {
+    border-radius: 0;
+}
+
+.contentbox {
+    padding: 8px 6px;
+    border: 1px solid #c9c9cc;
+    background: rgb(240, 240, 241);
+    background: linear-gradient(90deg, rgba(240, 240, 241, 1) 0%, rgba(235, 235, 237, 1) 100%);
+}
+
+.contactform .contentbox.contact-grit {
+    padding: 12px 0;
+}
+/* ==============================================================*/
+
+
+/* ======= 1.) Contact-form =====================================*/
+/* ==============================================================*/
+.contactform .grid-wrapper {
+    width: calc(100% - 40px);
+    margin-left: 12px;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+.contactform .container {
+    margin-bottom: 12px;
+}
+
+form > .container:last-child {
+    margin-bottom: 0;
+}
+
+.contactform .container label {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.contactform .container input[type=text],
+.contactform .container input[type=tel],
+.contactform .container input[type=email],
+.contactform .container textarea {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid #444447;
+}
+
+.contactform .container input[type=text],
+.contactform .container input[type=tel],
+.contactform .container input[type=email] {
+    height: 18px
+}
+
+.contactform .container textarea {
+    height: 120px
+}
+
+.contactform .sync-icon i {
+    font-size: 26px;
+}
+
+.contactform .sync-icon i:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+/* ==============================================================*/

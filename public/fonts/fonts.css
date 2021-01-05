@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Material Icons';
+    src: url(/public/fonts/material-icons/materialicons.woff2) format('woff2');
+}
+
+.material-icons {
+    vertical-align: bottom;
+    font-family: 'Material Icons', sans-serif;
+    font-weight: normal;
+    color: inherit;
+    font-style: inherit;
+    line-height: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: nowrap;
+    direction: ltr;
+}

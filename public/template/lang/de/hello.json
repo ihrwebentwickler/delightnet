@@ -1,0 +1,17 @@
+{
+  "loop": [
+    {
+      "key": "contentHello"
+    }
+  ],
+  "contentHello": [
+    {
+      "helloHeader": "DE Hallo Sagen 1",
+      "helloContent": "DE 111 Lorem Ipsum inscodensa Hallo Sagen 1"
+    },
+    {
+      "helloHeader": "DE Hallo Sagen 2",
+      "helloContent": "DE 222 Lorem Ipsum inscodensa Hallo Sagen 2"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{"contact": {
+    "main": {
+        "1": {
+            "emailTo": "your-mail-address@dsd.de",
+            "subject": "Subject of mail",
+            "ConfirmationSiteFileName": "thanks",
+            "messagetext": "
+            <html>
+            <header></header>
+            <body>
+            <div>
+            Neue Email über {SERVERADDRESS}
+            ---------------------------------------------------------------------------<br>
+            Email vom {TIMESTAMP} Uhr<br>
+            IP-Adresse des Absenders: {IP-ADDRESS}v
+            Host: {SERVERADDRESS}v
+            Versendet über die Seite: {HOSTNAME}<br>
+            ---------------------------------------------------------------------------<br>
+            <br>
+            Email von: {1}<br>
+            Email-Adresse: {2}<br>
+            Telefon: {3}<br>
+            <br>
+            ____________________________________________________________________<br>
+            Der Emailtext:<br>
+            {4}
+            <br>
+            ____________________________________________________________________
+            </div>
+            </body>
+            </html>
+            "
+        }
+    },
+    "formParameters": {
+    "1": {
+        "1": {
+        "obligation": "1",
+        "error": "Error: Name"
+        },
+        "2": {
+        "obligation": "1",
+        "error": "Error: Email"
+        },
+        "3": {
+        "obligation": "0",
+        "error": "Error: Telefon"
+        },
+        "4": {
+        "obligation": "1",
+        "error": "Error: Text"
+        }
+    }
+    },
+    "message": {
+        "1": {
+        "spamKeyError": "Fehler: Bitte geben Sie einen richtigen Spam-Code ein."
+        }
+    },
+    "captcha": {
+        "1": {
+        "font": "232MKRB_.TTF",
+        "fontSize": "17",
+        "fontColor": "f49600",
+        "backgroundColor": "F0F0F1"
+        }
+    },
+    "map": {
+        "1": {
+        "welcometext": "Your company-name",
+        "actiontext": "company<br>firstname lastname<br>eMail: your-mail-address[ add ]dsd.de<br>Telefon: 0134 34543",
+        "latitude": "52.516384792035126",
+        "longitude": "13.378491985784256",
+        "width": "100%",
+        "height": "320px",
+        "zoom": 7
+        }
+    }
+}}

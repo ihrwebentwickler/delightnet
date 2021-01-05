@@ -7,3 +7,7 @@ software information is available in each of the main folders of different produ
 DelightOS is an open-source website-operation-system with f.e. session-, template- or filehandle-
 env. It supports the implementation of own extensions. As default a contact-form with
 openstreet-map is implemented as extension.
+<br>
+Demo-site:<br>
+delightos.delightnet.de
+

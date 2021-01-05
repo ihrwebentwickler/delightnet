@@ -1,0 +1,15 @@
+{
+  "dynamicFiles": {
+    "permanent": [
+      "//code.jquery.com/jquery-3.5.1.min.js",
+      "public/js/main.js",
+      "public/fonts/fonts.css",
+      "public/fonts/themify/themify-icons.css",
+      "public/themes/maintheme/css/grid.css",
+      "public/css/forms.css",
+      "public/themes/maintheme/js/site-functions.js",
+      "https://openlayers.org/en/v4.6.5/build/ol.js",
+      "https://openlayers.org/en/v4.6.5/css/ol.css"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+    "main": {
+        "defaults": {
+            "homesite": "home",
+            "error": "home",
+            "menustyle": "parts/menustyle.tpl",
+            "alpha2": "de"
+        },
+        "menu": {
+            "1": [
+                "hi"
+            ],
+            "2": [
+                "hello",
+                "contact"
+            ]
+        }
+    }
+}

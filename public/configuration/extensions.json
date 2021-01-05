@@ -1,0 +1,11 @@
+{
+  "extensions": {
+    "contact": {
+      "menuname": "Kontakt-Form",
+      "isActive": true,
+      "Marker": [
+        "CONTACT1"
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+DelightCMS
+Version 2.0 (04.01.2021)
+
+Ihr Webentwickler, Gunnar von Spreckelsen
+
+licence:
+Open Source Lizenz AGPL v3 (http://opensource.org/licenses/AGPL-3.0)
+
+ihrwebentwickler.de
+delightnet.de
