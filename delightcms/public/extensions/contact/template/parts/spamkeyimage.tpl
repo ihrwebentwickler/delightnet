@@ -1,1 +1,0 @@
-<img class="spamkeyimage" src="data:image/png;base64,{IMGDATA}" alt="">

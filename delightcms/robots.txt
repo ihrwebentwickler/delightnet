@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /cmsadmin/
-Disallow: /delightnet/
-Disallow: /404.html
