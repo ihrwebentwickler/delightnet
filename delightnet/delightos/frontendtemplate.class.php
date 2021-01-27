@@ -20,7 +20,7 @@ class FrontendTemplate extends Template implements TemplateView {
      * @return void
      */
     public function setPluginEnv(): void {
-        if (!empty($this->arrExtensions['extensions'])) {
+        if (is_array($this->arrExtensions['extensions'])) {
             // include global ext-env
             foreach ($this->arrExtensions['extensions'] as $strExtName => $arrExt) {
                 // include optional ext-env

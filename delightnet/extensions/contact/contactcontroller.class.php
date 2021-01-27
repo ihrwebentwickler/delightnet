@@ -46,7 +46,7 @@ class ContactController extends Controller {
             $htmlCaptcha = (file_exists("public/extensions/contact/template/parts/spamkeyimage.tpl")) ?
                 $this->Filehandle->readFilecontent("public/extensions/contact/template/parts/spamkeyimage.tpl") : "";
             $strSpamkey = $objContact->getCaptcha($this->objConfiguration, $this->strInstanceId);
-            $this->renderAjax($this->MandN->setBlock($htmlCaptcha, "IMGDATA", $strSpamkey));
+            $this->renderContent($this->MandN->setBlock($htmlCaptcha, "IMGDATA", $strSpamkey));
         }
 
         $this->replaceInputData($htmlEmailData);

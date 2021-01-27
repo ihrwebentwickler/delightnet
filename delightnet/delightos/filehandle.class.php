@@ -47,9 +47,8 @@ class Filehandle {
      */
     public function writeFilecontent(string $fileLink, string $fileContent): void {
         if (strlen($fileContent) > 0 && file_exists($fileLink)) {
-            $fileContent = stripslashes($fileContent);
             $filehandle = fopen($fileLink, 'w');
-            fwrite($filehandle, $fileContent, strlen($fileContent));
+            fwrite($filehandle, stripslashes($fileContent), strlen($fileContent));
             fclose($filehandle);
         }
     }
@@ -118,14 +117,14 @@ class Filehandle {
      * @return ZipArchive | boolean
      */
     public function createZipArchiv(string $archivFileName, array $sources) {
+        if (!extension_loaded('zip')) {
+            return false;
+        }
+
         if (is_array($sources)) {
             $arraySources = $sources;
         } else {
             $arraySources[0] = $sources;
-        }
-
-        if (!extension_loaded('zip')) {
-            return false;
         }
 
         $zip = new ZipArchive();
@@ -185,44 +184,6 @@ class Filehandle {
     }
 
     /**
-     * transform a ini-file to a mutiple array
-     *
-     * @param string $filelink
-     * @return array $arrayIniTransformed
-     */
-    public function transformIniFileToMutipleArray(string $filelink): array {
-        $arrayIni = parse_ini_file($filelink, TRUE);
-        $arrayIniTransformed = array();
-
-        foreach ($arrayIni as $groupKey => $groupArray) {
-            foreach ($groupArray as $contentKey => $strContent) {
-                $arraySplitIni = explode(".", $contentKey);
-                switch (sizeof($arraySplitIni)) {
-                    case 0:
-                        $arrayIniTransformed = null;
-                        break;
-                    case 1:
-                        $arrayIniTransformed[$groupKey][$arraySplitIni[0]] = $strContent;
-                        break;
-                    case 2:
-                        $arrayIniTransformed[$groupKey][$arraySplitIni[0]][$arraySplitIni[1]] = $strContent;
-                        break;
-                    case 3:
-                        $arrayIniTransformed[$groupKey][$arraySplitIni[0]][$arraySplitIni[1]][$arraySplitIni[2]] = $strContent;
-                        break;
-                    case 4:
-                        $arrayIniTransformed[$groupKey][$arraySplitIni[0]][$arraySplitIni[1]][$arraySplitIni[2]][$arraySplitIni[3]] = $strContent;
-                        break;
-                    default:
-                        $arrayIniTransformed = null;
-                }
-            }
-        }
-
-        return $arrayIniTransformed;
-    }
-
-    /**
      * write a simple ini-file from array
      *
      * @param string $fileLink
@@ -279,7 +240,7 @@ class Filehandle {
 
     /**
      * clean json-string: delete escape-sequences like breaks and
-     * repair JSON-UTF8-Bug (better solution will follow soon)
+     * other chars
      *
      * @param string $strJason
      * @return string

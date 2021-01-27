@@ -16,6 +16,13 @@ class Session {
     }
 
     /**
+     * unset current session
+     */
+    function __destruct() {
+        @session_destroy();
+    }
+
+    /**
      * set global session-value ($_SESSION[$name])
      *
      * @param string $name
@@ -38,13 +45,5 @@ class Session {
         }
 
         return $_SESSION[$name];
-    }
-
-    /**
-     * unset current session
-     * @return void
-     */
-    public function unsetSession(): void {
-        @session_destroy();
     }
 }

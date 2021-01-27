@@ -13,6 +13,7 @@ namespace delightnet\delightos;
 class HttpRequest implements Request {
 
     private array $parameters;
+    private array $serverEnv;
 
     public function __construct() {
         $this->parameters = $_REQUEST;

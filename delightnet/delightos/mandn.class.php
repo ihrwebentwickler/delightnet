@@ -1,7 +1,7 @@
 <?php
 
 /*
- * very small own template-language, a bit like smarty, but MandN tasts good to
+ * very small own template-language, a bit like smarty, but MandN tasts good too ;-)
  * 
  * @author    Gunnar von Spreckelsen <service@ihrwebentwickler.de>
  * @package   delightos

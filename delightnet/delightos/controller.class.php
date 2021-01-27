@@ -12,13 +12,13 @@ namespace delightnet\delightos;
 
 abstract class Controller implements ControllerInterface {
     public string $strExtName;
-    public int $strInstanceId;
+    public int $instanceId;
     public string $strExtTemplate;
     public object $objConfiguration;
     public object $objLangs;
     public string $strAlpha2;
-    public Request $objRequest;
 
+    public Request $objRequest;
     public Filehandle $Filehandle;
     public MandN $MandN;
     public Security $Security;
@@ -38,7 +38,7 @@ abstract class Controller implements ControllerInterface {
      * setter-method for controller-env
      *
      * @param string $strExtName
-     * @param string $strInstanceId
+     * @param int $instanceId
      * @param string $strExtTemplate
      * @param object $objConfiguration
      * @param object $objLangs
@@ -49,11 +49,11 @@ abstract class Controller implements ControllerInterface {
      * @param Security $Security
      * @param Session $Session
      */
-    public function setController(string $strExtName, string $strInstanceId, string $strExtTemplate,
+    public function setController(string $strExtName, int $instanceId, string $strExtTemplate,
                                   object $objConfiguration, object $objLangs, string $strAlpha2, Request $objRequest,
                                   Filehandle $Filehandle, MandN $MandN, Security $Security, Session $Session) {
         $this->strExtName = $strExtName;
-        $this->strInstanceId = $strInstanceId;
+        $this->instanceId = $instanceId;
         $this->strExtTemplate = $strExtTemplate;
         $this->objConfiguration = $objConfiguration;
         $this->objLangs = $objLangs;
@@ -67,13 +67,13 @@ abstract class Controller implements ControllerInterface {
     }
 
     /**
-     * render AJAX-calls of frontend-env (angular.js)
+     * render request-calls with new content
      *
-     * @param string $strOutputAjax
+     * @param string $strOutput
      *  @return void
      */
-    public function renderAjax(string $strOutputAjax): void {
-        echo $strOutputAjax;
+    public function renderContent(string $strOutput): void {
+        echo $strOutput;
         exit;
     }
 
