@@ -29,15 +29,15 @@ class ContactController extends Controller {
 
         if ($this->objRequest->getParameter('contactform')) {
             $isValidCaptcha = $objContact->checkCaptcha($this->objRequest->getParameter('captcha'));
-            $isValidForm = $objContact->checkForm($htmlEmailData, $this->objConfiguration, $this->strInstanceId);
+            $isValidForm = $objContact->checkForm($htmlEmailData, $this->objConfiguration, $this->instanceId);
 
             if ($isValidCaptcha === true && $isValidForm === true) {
                 $objContact->sendMail(
                     $htmlEmailData,
-                    $this->objConfiguration, $this->objRequest, $this->strInstanceId
+                    $this->objConfiguration, $this->objRequest, $this->instanceId
                 );
                 $this->objRequest->loadLocation($this->objConfiguration->contact->main
-                    ->{$this->strInstanceId}->ConfirmationSiteFileName);
+                    ->{$this->instanceId}->ConfirmationSiteFileName);
                 exit;
             }
         }
@@ -45,7 +45,7 @@ class ContactController extends Controller {
         if ($this->objRequest->getParameter("query") == "getCaptchaimage") {
             $htmlCaptcha = (file_exists("public/extensions/contact/template/parts/spamkeyimage.tpl")) ?
                 $this->Filehandle->readFilecontent("public/extensions/contact/template/parts/spamkeyimage.tpl") : "";
-            $strSpamkey = $objContact->getCaptcha($this->objConfiguration, $this->strInstanceId);
+            $strSpamkey = $objContact->getCaptcha($this->objConfiguration, $this->instanceId);
             $this->renderContent($this->MandN->setBlock($htmlCaptcha, "IMGDATA", $strSpamkey));
         }
 
@@ -62,8 +62,8 @@ class ContactController extends Controller {
      * @return void
      */
     public function replaceInputData($htmlEmailData): void {
-        if (is_object($this->objConfiguration->contact->formParameters->{$this->strInstanceId})) {
-            foreach ($this->objConfiguration->contact->formParameters->{$this->strInstanceId} as $key => $value) {
+        if (is_object($this->objConfiguration->contact->formParameters->{$this->instanceId})) {
+            foreach ($this->objConfiguration->contact->formParameters->{$this->instanceId} as $key => $value) {
                 $htmlStringValue =
                     (
                         isset($htmlEmailData)
@@ -75,7 +75,7 @@ class ContactController extends Controller {
 
                 $this->strExtTemplate = $this->MandN->setBlock(
                     $this->strExtTemplate, "ERROR" . $key,
-                    $this->objConfiguration->contact->formParameters->{$this->strInstanceId}->{$key}->error
+                    $this->objConfiguration->contact->formParameters->{$this->instanceId}->{$key}->error
                 );
             }
         }
@@ -87,13 +87,13 @@ class ContactController extends Controller {
      * @return void
      */
     public function replaceMapsDataEnv(): void {
-        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_WELCOMETEXT", $this->objConfiguration->contact->map->{$this->strInstanceId}->welcometext);
-        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_ACTIONTEXT", $this->objConfiguration->contact->map->{$this->strInstanceId}->actiontext);
-        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_LATITUDE", $this->objConfiguration->contact->map->{$this->strInstanceId}->latitude);
-        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_LONGITUDE", $this->objConfiguration->contact->map->{$this->strInstanceId}->longitude);
-        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_ZOOM", $this->objConfiguration->contact->map->{$this->strInstanceId}->zoom);
-        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_WIDTH", $this->objConfiguration->contact->map->{$this->strInstanceId}->width);
-        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_HEIGHT", $this->objConfiguration->contact->map->{$this->strInstanceId}->height);
+        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_WELCOMETEXT", $this->objConfiguration->contact->map->{$this->instanceId}->welcometext);
+        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_ACTIONTEXT", $this->objConfiguration->contact->map->{$this->instanceId}->actiontext);
+        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_LATITUDE", $this->objConfiguration->contact->map->{$this->instanceId}->latitude);
+        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_LONGITUDE", $this->objConfiguration->contact->map->{$this->instanceId}->longitude);
+        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_ZOOM", $this->objConfiguration->contact->map->{$this->instanceId}->zoom);
+        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_WIDTH", $this->objConfiguration->contact->map->{$this->instanceId}->width);
+        $this->strExtTemplate = $this->MandN->setBlock($this->strExtTemplate, "MAP_HEIGHT", $this->objConfiguration->contact->map->{$this->instanceId}->height);
     }
 
     /**
@@ -103,7 +103,7 @@ class ContactController extends Controller {
      */
     public function replaceSpamInputError(bool $isValidCaptcha): void {
         if ($isValidCaptcha == false && $this->objRequest->getParameter('captcha')) {
-            $htmlErrorBorder = $this->loadTemplate("public/extensions/Contact/template/parts/errorborder.tpl");
+            $htmlErrorBorder = $this->loadTemplate("public/extensions/contact/template/parts/errorborder.tpl");
         } else {
             $htmlErrorBorder = "";
         }
