@@ -92,8 +92,6 @@ class Contact {
 
     /**
      * get dynamic html-captcha
-     * @param object $objConfiguration
-     * @param string $strInstanceId
      * @return string
      */
     public function getCaptcha(): string {

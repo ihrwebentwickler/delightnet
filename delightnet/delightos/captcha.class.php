@@ -15,6 +15,10 @@ class Captcha {
     public Security $Security;
     public string $strSigns;
     public object $captchaData;
+    /**
+     * @var MandN
+     */
+    public MandN $MandN;
 
     public function __construct() {
         $this->Session = new Session();
@@ -41,7 +45,7 @@ class Captcha {
 
     /**
      * test of valid captcha-Input
-     * string $strCaptchaInput
+     * @param string $strCaptchaInput
      * @return bool
      */
     function checkCaptcha(string $strCaptchaInput): bool {

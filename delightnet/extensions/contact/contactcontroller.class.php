@@ -20,7 +20,7 @@ class ContactController extends Controller {
      * @return string
      */
     public function action(): string {
-        $objContact = new Contact($this->MandN, $this->Security, $this->Session);
+        $objContact = new Contact();
         $this->replaceMapsDataEnv();
         $htmlEmailData = $this->objRequest->getParameter('emaildata');
         $htmlEmailData = is_array($htmlEmailData) ?
@@ -46,7 +46,7 @@ class ContactController extends Controller {
         if ($this->objRequest->getParameter("query") == "getCaptchaimage") {
             $htmlCaptcha = (file_exists("public/extensions/contact/template/parts/spamkeyimage.tpl")) ?
                 $this->Filehandle->readFilecontent("public/extensions/contact/template/parts/spamkeyimage.tpl") : null;
-            $strSpamkey = $objContact->getCaptcha($this->objConfiguration, $this->instanceId);
+            $strSpamkey = $objContact->getCaptcha();
             $this->renderContent($this->MandN->setBlock($htmlCaptcha, "IMGDATA", $strSpamkey));
         }
 
