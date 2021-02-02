@@ -31,11 +31,12 @@ class ContactController extends Controller {
             $isValidCaptcha = $objContact->checkCaptcha($this->objRequest->getParameter('captcha'));
             $isValidForm = $objContact->checkForm($htmlEmailData, $this->objConfiguration, $this->instanceId);
 
-            if ($isValidCaptcha === true && $isValidForm === true) {
+            if ($isValidCaptcha && $isValidForm) {
                 $objContact->sendMail(
                     $htmlEmailData,
                     $this->objConfiguration, $this->objRequest, $this->instanceId
                 );
+
                 $this->objRequest->loadLocation($this->objConfiguration->contact->main
                     ->{$this->instanceId}->ConfirmationSiteFileName);
                 exit;
@@ -44,7 +45,7 @@ class ContactController extends Controller {
 
         if ($this->objRequest->getParameter("query") == "getCaptchaimage") {
             $htmlCaptcha = (file_exists("public/extensions/contact/template/parts/spamkeyimage.tpl")) ?
-                $this->Filehandle->readFilecontent("public/extensions/contact/template/parts/spamkeyimage.tpl") : "";
+                $this->Filehandle->readFilecontent("public/extensions/contact/template/parts/spamkeyimage.tpl") : null;
             $strSpamkey = $objContact->getCaptcha($this->objConfiguration, $this->instanceId);
             $this->renderContent($this->MandN->setBlock($htmlCaptcha, "IMGDATA", $strSpamkey));
         }
@@ -102,7 +103,7 @@ class ContactController extends Controller {
      * @return void
      */
     public function replaceSpamInputError(bool $isValidCaptcha): void {
-        if ($isValidCaptcha == false && $this->objRequest->getParameter('captcha')) {
+        if (!$isValidCaptcha && $this->objRequest->getParameter('captcha')) {
             $htmlErrorBorder = $this->loadTemplate("public/extensions/contact/template/parts/errorborder.tpl");
         } else {
             $htmlErrorBorder = "";

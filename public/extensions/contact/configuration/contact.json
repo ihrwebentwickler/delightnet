@@ -6,27 +6,27 @@
             "ConfirmationSiteFileName": "thanks",
             "messagetext": "
             <html>
-            <header></header>
+            <head>
+                <title>neue Email</title>
+            </head>
             <body>
-            <div>
-            Neue Email über {SERVERADDRESS}
-            ---------------------------------------------------------------------------<br>
-            Email vom {TIMESTAMP} Uhr<br>
-            IP-Adresse des Absenders: {IP-ADDRESS}v
-            Host: {SERVERADDRESS}v
-            Versendet über die Seite: {HOSTNAME}<br>
-            ---------------------------------------------------------------------------<br>
-            <br>
-            Email von: {1}<br>
-            Email-Adresse: {2}<br>
-            Telefon: {3}<br>
-            <br>
-            ____________________________________________________________________<br>
-            Der Emailtext:<br>
+            <p>Neue Email über {SERVERADDRESS}</p>
+            <p>---------------------------------------------------------------------------</p>
+            <p>Email vom {TIMESTAMP} Uhr</p>
+            <p>IP-Adresse des Absenders: {IP-ADDRESS}</p>
+            <p>Host: {SERVERADDRESS}</p>
+            <p>Versendet über die Seite: {HOSTNAME}</p>
+            <p>---------------------------------------------------------------------------</p>
+            <p></p>
+            <p>Email von: {1}</p>
+            <p>Email-Adresse: {2}<p>
+            <p>Telefon: {3}</p>
+            <p></p>
+            <p>____________________________________________________________________</p>
+            <p>Der Emailtext:</p>
             {4}
-            <br>
-            ____________________________________________________________________
-            </div>
+            <p></p>
+            <p>____________________________________________________________________</p>
             </body>
             </html>
             "
@@ -55,14 +55,6 @@
     "message": {
         "1": {
         "spamKeyError": "Fehler: Bitte geben Sie einen richtigen Spam-Code ein."
-        }
-    },
-    "captcha": {
-        "1": {
-        "font": "232MKRB_.TTF",
-        "fontSize": "17",
-        "fontColor": "f49600",
-        "backgroundColor": "F0F0F1"
         }
     },
     "map": {

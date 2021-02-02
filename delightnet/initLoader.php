@@ -11,11 +11,12 @@
  *
  */
 use delightnet\delightos as os;
-set_include_path(dirname(__DIR__));
 
+set_include_path(dirname(__DIR__));
 spl_autoload_extensions('.class.php,.interface.php');
 spl_autoload_register();
 
+// start main-env
 $resolver = new os\FileSystemCommandResolver();
 $controller = new os\FrontController($resolver);
 
@@ -23,6 +24,3 @@ $request = new os\HttpRequest();
 $response = new os\HttpResponse();
 
 $controller->handleRequest($request, $response);
-
-// activate for memory-stats
-// echo memory_get_usage(true);

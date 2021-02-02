@@ -25,27 +25,11 @@ class FileSystemCommandResolver implements CommandResolver {
      * @return array $arrayCommands
      */
     public function getCommand(Request $request, Response $response): array {
-        return $this->loadCommand($request, $response);
-    }
-
-    /**
-     * The frontend-env creates the buildTemplate-
-     * method of delightos/Template.class, by backend-use the execute-method of the variable command-class is loaded
-     *
-     * @param Request $request
-     * @param Response $response
-     * @return array $arrayCommands
-     */
-    protected function loadCommand(Request $request, Response $response): array {
-        $arrayCommands = [];
-        if (strpos($request->getServerRequestUri(), "cmsadmin") === false) {
-            $strClass = 'delightnet\\delightos\\' . 'FrontendTemplate';
-            $arrayCommands['commandClassAction'] = 'buildTemplate';
-            $stringDirEnv = "public/";
-            $arrayCommands['commandClassRouting'] = new $strClass($request, $response, $stringDirEnv);
-        }
+        $strClass = 'delightnet\\delightos\\' . 'FrontendTemplate';
+        $arrayCommands['commandClassAction'] = 'buildTemplate';
+        $stringDirEnv = "public/";
+        $arrayCommands['commandClassRouting'] = new $strClass($request, $response, $stringDirEnv);
 
         return $arrayCommands;
     }
-
 }

@@ -1,7 +1,8 @@
-{"themes": [
+{
+  "themes": [
     {
-        "name": "maintheme",
-        "isActiv": true
+      "name": "maintheme",
+      "isActiv": true
     }
-]
+  ]
 }

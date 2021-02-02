@@ -35,7 +35,10 @@ class MandN {
      * @return string $strContent
      */
     public function setBlock(string $strContent, string $blockname, string $strValue): string {
-        $strContent = str_replace("{" . strtoupper($blockname) . "}", $strValue, $strContent);
+        if (isset($strContent) && isset($blockname) && isset($strValue)) {
+            $strContent = str_replace("{" . strtoupper($blockname) . "}", $strValue, $strContent);
+        }
+
         return $strContent;
     }
 

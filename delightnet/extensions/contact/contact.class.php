@@ -1,39 +1,30 @@
 <?php
-
 /*
- * contact-form including spamkey-building and checking
+ * contact-form
  *
  * @author    Gunnar von Spreckelsen <service@ihrwebentwickler.de>
  * @package   delightos
- * @version   5.30
+ * @version   5.40
  *
  */
 
 namespace delightnet\extensions\Contact;
 
+use delightnet\delightos\Captcha;
+use delightnet\delightos\Filehandle;
 use delightnet\delightos\HttpRequest;
 use delightnet\delightos\MandN;
 use delightnet\delightos\Request;
-use delightnet\delightos\Security;
-use delightnet\delightos\Session;
 
 class Contact {
-    public int $intNbCharsOfCaptcha;
-    public string $strSigns;
-
     public MandN $MandN;
-    public Security $Security;
-    public Session $Session;
     public HttpRequest $HttpRequest;
+    public Captcha $Captcha;
 
-    public function __construct(MandN $MandN, Security $Security, Session $Session) {
-        $this->intNbCharsOfCaptcha = 4;
-        $this->strSigns = "aABcCDeEfFGhHjJkKLmMnNpPRsSuUvVwWxXyYzZ2345678";
-
-        $this->MandN = $MandN;
-        $this->Security = $Security;
-        $this->Session = $Session;
+    public function __construct() {
         $this->HttpRequest = new HttpRequest();
+        $this->Captcha = new Captcha();
+        $this->MandN = new MandN(new Filehandle(), new HttpRequest());
     }
 
     /**
@@ -42,34 +33,7 @@ class Contact {
      * @return bool
      */
     public function checkCaptcha(string $strRequestCaptcha): bool {
-        $strSessionCaptchaKey = $this->Session->getSession('recaptchakey');
-        $strSessionCaptchaKey = $this->Security->decodeString($strSessionCaptchaKey);
-        $isValid = true;
-
-        if ($strRequestCaptcha === "" || $strSessionCaptchaKey === "") {
-            $isValid = false;
-        }
-
-        if ($isValid) {
-            $arraySpamKey = explode("_", $strSessionCaptchaKey);
-            $strKeyClearText = "";
-
-            if (!is_array($arraySpamKey) || count($arraySpamKey) !== 5) {
-                $isValid = false;
-            } else {
-                foreach ($arraySpamKey as $key => $value) {
-                    if ($value && $value != "_" && strlen($strKeyClearText) < $this->intNbCharsOfCaptcha) {
-                        $strKeyClearText .= $this->strSigns[$value - 1];
-                    }
-                }
-
-                if ($strKeyClearText != $strRequestCaptcha) {
-                    $isValid = false;
-                }
-            }
-        }
-
-        return $isValid;
+        return $this->Captcha->checkCaptcha($strRequestCaptcha);
     }
 
     /**
@@ -132,51 +96,8 @@ class Contact {
      * @param string $strInstanceId
      * @return string
      */
-    public function getCaptcha(object $objConfiguration, string $strInstanceId): string {
-        $font = "public/extensions/contact/fonts/" . $objConfiguration->contact->captcha->{$strInstanceId}->font;
-        $imageWidth = $this->intNbCharsOfCaptcha * $objConfiguration->contact->captcha->{$strInstanceId}->fontSize + 4;
-        $imageHeight = 2 * $objConfiguration->contact->captcha->{$strInstanceId}->fontSize - 4;
-        $image = imagecreate($imageWidth, $imageHeight);
-        $arrayRgbBackgroundColor =
-            $this->MandN->hex2rgb($objConfiguration->contact->captcha->{$strInstanceId}->backgroundColor);
-        imagecolorallocate(
-            $image,
-            $arrayRgbBackgroundColor[0],
-            $arrayRgbBackgroundColor[1],
-            $arrayRgbBackgroundColor[2]
-        );
-        $arrayRgbFontColors = $this->MandN->hex2rgb($objConfiguration->contact->captcha->{$strInstanceId}->fontColor);
-
-        $strCaptchaKey = "";
-        $left = -11;
-
-        for ($i = 1; $i <= $this->intNbCharsOfCaptcha; $i++) {
-            $nbCaptchaKey = rand(1, strlen($this->strSigns));
-            $strCaptchaKey .= $nbCaptchaKey . "_";
-
-            $angle = (rand(1, 2) == 1) ? rand(-4, -2) : rand(2, 4);
-            ImageTTFText(
-                $image,
-                $objConfiguration->contact->captcha->{$strInstanceId}->fontSize,
-                $angle,
-                $left + (14 * $i),
-                18,
-                imagecolorallocate($image, $arrayRgbFontColors[0], $arrayRgbFontColors[1], $arrayRgbFontColors[2]),
-                $font,
-                $this->strSigns[$nbCaptchaKey - 1]);
-        }
-
-        $strCaptchaKey = $this->Security->encodeString($strCaptchaKey);
-        $this->Session->setSession('recaptchakey', $strCaptchaKey);
-
-        imageline($image, rand(1, 3), rand(3, 8), rand(30, 55), rand(8, 14), imagecolorallocate($image, 203, 203, 205));
-        ob_start();
-        ImagePNG($image);
-        imagedestroy($image);
-        $imageOutput = base64_encode(ob_get_contents());
-        ob_end_clean();
-
-        return $imageOutput;
+    public function getCaptcha(): string {
+        return $this->Captcha->getCaptchaImage();
     }
 
     /**
